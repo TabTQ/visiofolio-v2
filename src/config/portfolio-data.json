@@ -1,3 +1,4 @@
+
 {
   "personalInfo": {
     "name": "Your Name",
@@ -183,20 +184,20 @@
   ],
   "skills": [
     { "id": "sk1", "name": "JavaScript / TypeScript", "level": 95, "category": "Technical" },
-    { "id": "sk2", "name": "React / Next.js", "level": 90, "category": "Technical" },
+    { "id": "sk2", "name": "React / Next.js", "level": 60, "category": "Technical" },
     { "id": "sk3", "name": "Node.js / Express", "level": 85, "category": "Technical" },
-    { "id": "sk4", "name": "Python / Django", "level": 75, "category": "Technical" },
+    { "id": "sk4", "name": "Python / Django", "level": 30, "category": "Technical" },
     { "id": "sk5", "name": "SQL / PostgreSQL", "level": 80, "category": "Technical" },
-    { "id": "sk6", "name": "HTML / CSS / Tailwind", "level": 95, "category": "Technical" },
+    { "id": "sk6", "name": "HTML / CSS / Tailwind", "level": 50, "category": "Technical" },
     { "id": "sk7", "name": "AWS / Cloud Architecture", "level": 70, "category": "Technical" },
-    { "id": "sk13", "name": "Three.js / WebGL", "level": 65, "category": "Technical" },
+    { "id": "sk13", "name": "Three.js / WebGL", "level": 25, "category": "Technical" },
     { "id": "sk8", "name": "Git / GitHub", "level": 90, "category": "Tools" },
-    { "id": "sk9", "name": "Docker", "level": 70, "category": "Tools" },
+    { "id": "sk9", "name": "Docker", "level": 45, "category": "Tools" },
     { "id": "sk10", "name": "Figma", "level": 80, "category": "Tools" },
-    { "id": "sk14", "name": "Jira / Agile Tools", "level": 85, "category": "Tools" },
+    { "id": "sk14", "name": "Jira / Agile Tools", "level": 75, "category": "Tools" },
     { "id": "sk11", "name": "Communication", "level": 90, "category": "Soft Skills" },
-    { "id": "sk12", "name": "Problem Solving", "level": 95, "category": "Soft Skills" },
-    { "id": "sk15", "name": "Teamwork & Collaboration", "level": 90, "category": "Soft Skills" },
+    { "id": "sk12", "name": "Problem Solving", "level": 65, "category": "Soft Skills" },
+    { "id": "sk15", "name": "Teamwork & Collaboration", "level": 33, "category": "Soft Skills" },
     { "id": "sk16", "name": "Leadership & Mentoring", "level": 80, "category": "Soft Skills" }
   ]
 }
