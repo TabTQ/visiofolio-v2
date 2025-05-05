@@ -14,11 +14,12 @@ interface Skill {
 // New component for segmented skill level bar
 const SkillLevelBar: FC<{ level: number }> = ({ level }) => {
   const thresholds = { basic: 33, intermediate: 66, proficient: 100 };
+  // Use theme colors for segments
   const colors = {
-    basic: 'bg-muted',
-    intermediate: 'bg-secondary',
-    proficient: 'bg-accent',
-    empty: 'bg-background',
+    basic: 'bg-muted', // Use muted color for basic
+    intermediate: 'bg-secondary', // Use secondary color for intermediate
+    proficient: 'bg-accent', // Use accent color for proficient
+    empty: 'bg-background', // Background for empty segments
   };
 
   const getSegmentClass = (segment: 'basic' | 'intermediate' | 'proficient') => {
@@ -67,14 +68,17 @@ const SkillCategoryIcon: FC<{ category: string }> = ({ category }) => {
 const Legend = () => (
   <div className="mb-8 flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
     <div className="flex items-center space-x-1">
+      {/* Use muted for Basic */}
       <span className="h-3 w-3 rounded-sm bg-muted border border-border"></span>
       <span>Basic</span>
     </div>
     <div className="flex items-center space-x-1">
+      {/* Use secondary for Intermediate */}
        <span className="h-3 w-3 rounded-sm bg-secondary border border-border"></span>
       <span>Intermediate</span>
     </div>
     <div className="flex items-center space-x-1">
+      {/* Use accent for Proficient */}
       <span className="h-3 w-3 rounded-sm bg-accent border border-border"></span>
       <span>Proficient</span>
     </div>
