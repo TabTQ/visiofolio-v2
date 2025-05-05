@@ -1,114 +1,103 @@
 
 {
   "personalInfo": {
-    "name": "Your Name",
-    "mobile": "+1 (123) 456-7890",
-    "email": "your.email@example.com",
+    "name": "Tabish Tariq",
+    "mobile": "+91 8802456752",
+    "email": "tabish.tariq@start3tech.com",
     "profilePicture": "/images/profile.jpg",
     "profilePictureHint": "professional headshot portrait",
-    "bio": "A passionate Senior Software Engineer specializing in building modern, scalable web applications. Welcome to my portfolio where I showcase my skills, projects, and professional experience.",
+    "bio": "A dedicated System Engineer at Tata Consultancy Services with over three years of experience in data analysis, AWS, ETL, and automation. Holding an MTech in Control and Instrumentation and a BTech in Electrical Engineering from Jamia Millia Islamia, I specialize in intelligent control systems, with published research on fuzzy logic-based irrigation systems in Springer and MDPI journals. My projects showcase expertise in Python, MATLAB, Arduino, and microcontroller-based designs, including algo trading bots, greenhouse automation, and traffic control systems. Certified in Quantum Computing, Java, and Rest API, I blend technical proficiency with innovative problem-solving to deliver impactful solutions.",
     "socialLinks": {
-      "github": "https://github.com/yourusername",
-      "linkedin": "https://linkedin.com/in/yourusername"
+      "github": "https://github.com/TabTQ/",
+      "linkedin": "https://www.linkedin.com/in/ertabish97/"
     },
     "footerCopyrightName": "StarT3Tech"
   },
   "projects": [
     {
       "id": "proj1",
-      "title": "E-commerce Platform",
-      "description": "A full-featured online store with user authentication, product catalog, cart, and checkout.",
+      "title": "Portfolio Website",
+      "description": "My personal portfolio website, developed using Google's Firebase Studio with Next.js, TypeScript, and Tailwind CSS, provides a detailed overview of my professional journey, technical skills, and academic background. This project showcases my experience with modern AI tools, app development and hosting. This website is running on my local linux server inside a docker container and accessed through a cloudflare tunnel running inside another docker container.",
       "imageUrl": "/images/proj1.jpg",
-      "imageHint": "online store shopping cart",
-      "tags": ["React", "Node.js", "PostgreSQL", "Stripe"],
-      "liveUrl": "#",
-      "repoUrl": "#",
+      "imageHint": "portfolio website ui",
+      "tags": ["Google Gemini", "Firebase Studio", "Next.js", "TypeScript", "Tailwind CSS", "Server administration", "linux", "Docker", "Hosting"],
+      "liveUrl": "tabishtariq.start3tech.com",
+      "repoUrl": "https://github.com/TabTQ/portfolio_website",
       "type": "Web App"
     },
     {
       "id": "proj2",
-      "title": "Task Management App",
-      "description": "A mobile application for organizing tasks, setting reminders, and collaborating with teams.",
+      "title": "Algo Trading Bot",
+      "description": "Simple Algo trading bot using Binance API, NumPy, Pandas in Python.",
       "imageUrl": "/images/proj2.jpg",
-      "imageHint": "mobile app task list",
-      "tags": ["React Native", "Firebase", "TypeScript"],
-      "repoUrl": "#",
-      "type": "Mobile App"
+      "imageHint": "algo trading bot",
+      "tags": ["Binance API", "NumPy", "Pandas", "Python"],
+      "repoUrl": "https://github.com/TabTQ/Binance-Trading-Bot",
+      "type": "Web App"
     },
     {
       "id": "proj3",
-      "title": "Customer Churn Prediction",
-      "description": "A machine learning model to predict customer churn based on usage patterns and demographics.",
+      "title": "Automatic Greenhouse Irrigation System",
+      "description": "Fuzzy Logic based Automation of Greenhouse irrigation system to control the flow rate of water using multiple environment factors",
       "imageUrl": "/images/proj3.jpg",
-      "imageHint": "data analysis charts graphs",
-      "tags": ["Python", "Scikit-learn", "Pandas", "Jupyter"],
-      "repoUrl": "#",
-      "type": "Data Science"
+      "imageHint": "schematic diagram",
+      "tags": ["Fuzzy Logic", "MATLAB", "Arduino", "C++", "Simulink", "Control Systems", "Instrumentation Systems"],
+      "repoUrl": "https://github.com/TabTQ/Intelligent-Control-of-Irrigation-System-using-Fuzzy-Logic-Controller",
+      "type": "Control Systems"
     },
       {
       "id": "proj4",
-      "title": "Portfolio Website V1",
-      "description": "Previous iteration of my personal portfolio website, built with vanilla HTML, CSS, and JS.",
+      "title": "Spring Framework Shopping Cart",
+      "description": "A simple shopping cart app created using spring framework to demonstrate the cart flow and expertise in spring framework",
       "imageUrl": "/images/proj4.jpg",
-      "imageHint": "website design code",
-      "tags": ["HTML", "CSS", "JavaScript"],
-      "liveUrl": "#",
+      "imageHint": "shopping cart",
+      "tags": ["Java", "Spring framework", "hibernate", "JSP"],
+      "liveUrl": "https://github.com/TabTQ/Shopping-Cart-Spring-Framework",
       "type": "Web App"
-    },
-     {
-      "id": "proj5",
-      "title": "Brand Identity Design",
-      "description": "Complete branding package including logo design, color palette, and typography for a startup.",
-      "imageUrl": "/images/proj5.jpg",
-      "imageHint": "logo design branding",
-      "tags": ["Figma", "Illustrator", "Branding"],
-      "type": "Design"
     }
   ],
   "experiences": [
     {
       "id": "exp1",
-      "title": "Senior Software Engineer",
-      "company": "Tech Solutions Inc.",
-      "duration": "Jan 2021 - Present",
-      "location": "San Francisco, CA",
+      "title": "Systems Engineer",
+      "company": "Tata Consultancy Services",
+      "duration": "Jan 2023 - Present",
+      "location": "Noida, UP",
       "responsibilities": [
-        "Led the development of a new microservices architecture, improving system scalability by 40%.",
+        "Led the development of a Monitoring Console to raise tickets on service now auotmatically.",
         "Mentored junior engineers, fostering a collaborative team environment.",
-        "Designed and implemented key features for the flagship product using React and Node.js.",
+        "Designed and implemented a Monitoring Dashboard using Stored Procedures and data transformation.",
         "Collaborated with product managers and designers to define project requirements and timelines."
       ],
       "achievements": [
-        "Reduced API response times by 25% through performance optimization.",
-        "Received \"Employee of the Quarter\" award for technical leadership."
+        "Improved operations team efficiency by 90% by automating the issues identification processes."
       ]
     },
     {
       "id": "exp2",
-      "title": "Software Engineer",
-      "company": "Web Innovators Co.",
-      "duration": "Jun 2018 - Dec 2020",
-      "location": "Austin, TX",
+      "title": "Assistant System Engineer - Trainee",
+      "company": "Tata Consultancy Services",
+      "duration": "Feb 2022 - Dec 2022",
+      "location": "Noida, UP",
       "responsibilities": [
-        "Developed and maintained web applications using Angular and Python/Django.",
+        "Developed and maintained ETL pipelines on AWS cloud.",
         "Participated in code reviews and contributed to improving code quality standards.",
         "Worked in an Agile team, participating in daily stand-ups, sprint planning, and retrospectives.",
-        "Integrated third-party APIs for payment processing and mapping services."
+        "Coordinated with multiple teams to fix the various pipeline issues at a service level."
       ],
        "achievements": [
-        "Successfully launched three major client projects on time and within budget."
+        "Successfully onboarded more than 100 data collection servers onto the existing AWS data pipeline."
       ]
     },
       {
       "id": "exp3",
-      "title": "Junior Web Developer",
-      "company": "Startup Hub",
-      "duration": "May 2017 - May 2018",
-      "location": "Remote",
+      "title": "Engineer Trainee",
+      "company": "Delhi Metro Rail Corporation Ltd",
+      "duration": "Jun 2018 - Jul 2018",
+      "location": "New Delhi, Delhi",
       "responsibilities": [
-        "Assisted senior developers in building and testing website features.",
-        "Fixed bugs and implemented enhancements for existing web applications.",
-        "Gained experience with version control (Git) and deployment processes."
+        "Assisted server admin in monitoring and troubleshooting TVS and BMS Systems.",
+        "Gained experience with SCADA and PLC systems."
       ]
     }
   ],
@@ -116,88 +105,101 @@
    {
       "id": "acad1",
       "type": "Degree",
-      "title": "Master of Science in Computer Science",
-      "institution": "Stanford University",
-      "date": "Graduated May 2018",
-      "description": "Specialization in Artificial Intelligence. Thesis: \"Novel Approaches to Natural Language Understanding\". GPA: 3.9/4.0",
+      "title": "Master of Technology in Control and Instrumentation Systems",
+      "institution": "Jamia Millia Islamia University",
+      "date": "Graduated Jul 2023",
+      "description": "Specialization in Control and Instrumentation Systems. Thesis: \"Intelligent Control of Irrigation Systems Using Fuzzy Logic Controller\". CGPA: 9.05",
       "url": "#"
     },
     {
       "id": "acad2",
       "type": "Degree",
-      "title": "Bachelor of Science in Software Engineering",
-      "institution": "University of Texas at Austin",
-      "date": "Graduated May 2016",
-      "description": "Minor in Mathematics. Dean's List for 4 semesters. Capstone project: Real-time collaborative editor.",
+      "title": "Bachelor of Technology in Electrical Engineering",
+      "institution": "Jamia Millia Islamia University",
+      "date": "Graduated Jul 2019",
+      "description": "Major in Control Systems. Capstone project: Design and implementation of a density-based traffic control system using microcontroller AT89S52.",
        "url": "#"
     },
     {
       "id": "acad3",
       "type": "Certification",
-      "title": "AWS Certified Solutions Architect – Associate",
-      "institution": "Amazon Web Services",
-      "date": "Issued Mar 2021",
-      "description": "Validated technical expertise in designing and deploying scalable, highly available, and fault-tolerant systems on AWS.",
-      "url": "#"
+      "title": "Qubit by Qubit's 2020-2021 Introduction to Quantum Computing Course sponsored by IBM Quantum",
+      "institution": "The Coding School",
+      "date": "Issued May 2021",
+      "description": "Gained knowledge of basic Quantum Computing.",
+      "url": "https://drive.google.com/file/d/1A_6UPX2BSu54-1LhX63jC7-6rO2Rr27L/view?usp=drivesdk"
     },
      {
       "id": "acad4",
-      "type": "Certification",
-      "title": "Certified ScrumMaster (CSM)",
-      "institution": "Scrum Alliance",
-      "date": "Issued Aug 2019",
+      "type": "Degree",
+      "title": "Senior School Certificate",
+      "institution": "Jamia Senior Secondary School",
+      "date": "Graduated May 2015",
       "url": "#"
     },
     {
       "id": "acad5",
-      "type": "Coursework",
-      "title": "Advanced Machine Learning",
-      "institution": "Coursera (Online)",
-      "date": "Completed Feb 2020",
-      "description": "Covered topics like deep learning, reinforcement learning, and graphical models."
+      "type": "Degree",
+      "title": "Secondary School Certificate",
+      "institution": "Jamia Senior Secondary School",
+      "date": "Graduated May 2013",
+      "url": "#"
     },
       {
       "id": "acad6",
-      "type": "Coursework",
-      "title": "UI/UX Design Fundamentals",
-      "institution": "Interaction Design Foundation",
-      "date": "Completed Jul 2022"
+      "type": "Certification",
+      "title": "Java (Basic)",
+      "institution": "HackerRank",
+      "date": "Issued Nov 2021",
+      "description": "Showcasing basic Java expertise.",
+      "url": "https://www.hackerrank.com/certificates/a2a0b6d60ed1"
+    },
+    {
+      "id": "acad7",
+      "type": "Certification",
+      "title": "Python (Basic)",
+      "institution": "HackerRank",
+      "date": "Issued Sep 2021",
+      "description": "Showcasing basic Python expertise.",
+      "url": "https://www.hackerrank.com/certificates/f8ebe76a9cf0"
     },
      {
       "id": "pub1",
       "type": "Publication",
-      "title": "Scalable Microservices on AWS",
-      "institution": "ACM Transactions on the Web",
-      "date": "Published Oct 2020",
-      "description": "Co-authored paper detailing best practices for designing and deploying large-scale microservice systems using AWS.",
-      "url": "#"
+      "title": "Analysis of Intelligent Control of Irrigation System",
+      "institution": "Springer, Singapore",
+      "date": "Published Apr 2023",
+      "description": "Detailed study on different intelligent control techniques to improve the irrigation system.",
+      "url": "https://doi.org/10.1007/978-981-19-7993-4_24"
     },
       {
       "id": "pub2",
       "type": "Publication",
-      "title": "React Performance Optimization Techniques",
-      "institution": "Smashing Magazine (Online)",
-      "date": "Published Apr 2022",
-      "description": "Article covering advanced techniques for optimizing React application performance.",
-      "url": "#"
+      "title": "Intelligent Control of Irrigation Systems Using Fuzzy Logic Controller",
+      "institution": "MDPI, Basel, Switzerland",
+      "date": "Published Sep 2022",
+      "description": "Analysis and development of a fuzzy logic based control of irrigation system.",
+      "url": "https://doi.org/10.3390/en15197199"
     }
   ],
   "skills": [
-    { "id": "sk1", "name": "JavaScript / TypeScript", "level": 95, "category": "Technical" },
-    { "id": "sk2", "name": "React / Next.js", "level": 60, "category": "Technical" },
-    { "id": "sk3", "name": "Node.js / Express", "level": 85, "category": "Technical" },
-    { "id": "sk4", "name": "Python / Django", "level": 30, "category": "Technical" },
-    { "id": "sk5", "name": "SQL / PostgreSQL", "level": 80, "category": "Technical" },
-    { "id": "sk6", "name": "HTML / CSS / Tailwind", "level": 50, "category": "Technical" },
-    { "id": "sk7", "name": "AWS / Cloud Architecture", "level": 70, "category": "Technical" },
-    { "id": "sk13", "name": "Three.js / WebGL", "level": 25, "category": "Technical" },
-    { "id": "sk8", "name": "Git / GitHub", "level": 90, "category": "Tools" },
-    { "id": "sk9", "name": "Docker", "level": 45, "category": "Tools" },
-    { "id": "sk10", "name": "Figma", "level": 80, "category": "Tools" },
-    { "id": "sk14", "name": "Jira / Agile Tools", "level": 75, "category": "Tools" },
+    { "id": "sk1", "name": "ETL / Amazon S3 / Amazon Redshift", "level": 90, "category": "Technical" },
+    { "id": "sk6", "name": "SCADA", "level": 50, "category": "Technical" },
+    { "id": "sk3", "name": "Java / Spring Framework", "level": 85, "category": "Technical" },
+    { "id": "sk5", "name": "Python", "level": 60, "category": "Technical" },
+    { "id": "sk4", "name": "SQL / PostgreSQL", "level": 80, "category": "Technical" },
+    { "id": "sk7", "name": "HTML / CSS / Tailwind", "level": 30, "category": "Technical" },
+    { "id": "sk2", "name": "AWS / Cloud Architecture", "level": 70, "category": "Technical" },
+    { "id": "sk13", "name": "Next.js / TypeScript", "level": 25, "category": "Technical" },
+    { "id": "sk8", "name": "Git / GitHub", "level": 50, "category": "Tools" },
+    { "id": "sk9", "name": "Docker / Docker-compose", "level": 45, "category": "Tools" },
+    { "id": "sk17", "name": "Grafana / Server Monitoring", "level": 45, "category": "Tools" },
+    { "id": "sk18", "name": "Linux / Server Administration", "level": 45, "category": "Tools" },
+    { "id": "sk10", "name": "App Deployment / Web Hosting", "level": 80, "category": "Tools" },
+    { "id": "sk14", "name": "Agile Tools", "level": 75, "category": "Tools" },
     { "id": "sk11", "name": "Communication", "level": 90, "category": "Soft Skills" },
-    { "id": "sk12", "name": "Problem Solving", "level": 65, "category": "Soft Skills" },
-    { "id": "sk15", "name": "Teamwork & Collaboration", "level": 33, "category": "Soft Skills" },
-    { "id": "sk16", "name": "Leadership & Mentoring", "level": 80, "category": "Soft Skills" }
+    { "id": "sk12", "name": "Problem Solving", "level": 90, "category": "Soft Skills" },
+    { "id": "sk15", "name": "Teamwork & Collaboration", "level": 90, "category": "Soft Skills" },
+    { "id": "sk16", "name": "Leadership & Mentoring", "level": 50, "category": "Soft Skills" }
   ]
 }
