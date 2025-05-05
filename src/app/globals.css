@@ -24,6 +24,10 @@ body {
     --accent-foreground: 0 0% 10%; /* Dark color for contrast on orange */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
+    --warning: 45 95% 55%; /* Brighter Yellow */
+    --warning-foreground: 45 95% 10%; /* Dark text on yellow */
+    --success: 145 65% 40%; /* Decent Green */
+    --success-foreground: 145 65% 95%; /* Light text on green */
     --border: 210 20% 88%; /* Light Grayish-Blue Border */
     --input: 210 20% 88%;
     --ring: 210 80% 45%; /* Moderate Blue for focus rings */
@@ -59,6 +63,10 @@ body {
     --accent-foreground: 0 0% 10%; /* Dark text on orange */
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 98%;
+    --warning: 45 90% 60%; /* Slightly less saturated Yellow */
+    --warning-foreground: 45 90% 10%;
+    --success: 145 60% 50%; /* Lighter Green */
+    --success-foreground: 145 60% 95%;
     --border: 215 15% 35%; /* Darker Grayish-Blue Border */
     --input: 215 15% 35%;
     --ring: 210 70% 65%; /* Lighter Blue ring */

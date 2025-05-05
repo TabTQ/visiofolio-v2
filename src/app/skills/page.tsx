@@ -16,9 +16,9 @@ const SkillLevelBar: FC<{ level: number }> = ({ level }) => {
   const thresholds = { basic: 33, intermediate: 66, proficient: 100 };
   // Use theme colors for segments
   const colors = {
-    basic: 'bg-muted', // Use muted color for basic
-    intermediate: 'bg-secondary', // Use secondary color for intermediate
-    proficient: 'bg-accent', // Use accent color for proficient
+    basic: 'bg-warning', // Use warning (yellow) for basic
+    intermediate: 'bg-accent', // Use accent (orange) for intermediate
+    proficient: 'bg-success', // Use success (green) for proficient
     empty: 'bg-background', // Background for empty segments
   };
 
@@ -54,11 +54,11 @@ const SkillCategoryIcon: FC<{ category: string }> = ({ category }) => {
   const lowerCaseCategory = category.toLowerCase();
   switch (lowerCaseCategory) {
     case 'technical':
-      return <BrainCircuit className="mr-2 h-5 w-5 text-accent" />;
+      return <BrainCircuit className="mr-2 h-5 w-5 text-primary" />; // Changed icon color to primary
     case 'tools':
-      return <Wrench className="mr-2 h-5 w-5 text-accent" />;
+      return <Wrench className="mr-2 h-5 w-5 text-primary" />; // Changed icon color to primary
     case 'soft skills': // Match the case from JSON if needed, or keep consistent
-       return <Users className="mr-2 h-5 w-5 text-accent" />;
+       return <Users className="mr-2 h-5 w-5 text-primary" />; // Changed icon color to primary
     default: // Handle unexpected categories gracefully
       return <BrainCircuit className="mr-2 h-5 w-5 text-muted-foreground" />; // Default icon
   }
@@ -68,18 +68,18 @@ const SkillCategoryIcon: FC<{ category: string }> = ({ category }) => {
 const Legend = () => (
   <div className="mb-8 flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
     <div className="flex items-center space-x-1">
-      {/* Use muted for Basic */}
-      <span className="h-3 w-3 rounded-sm bg-muted border border-border"></span>
+      {/* Use warning (yellow) for Basic */}
+      <span className="h-3 w-3 rounded-sm bg-warning border border-border"></span>
       <span>Basic</span>
     </div>
     <div className="flex items-center space-x-1">
-      {/* Use secondary for Intermediate */}
-       <span className="h-3 w-3 rounded-sm bg-secondary border border-border"></span>
+      {/* Use accent (orange) for Intermediate */}
+       <span className="h-3 w-3 rounded-sm bg-accent border border-border"></span>
       <span>Intermediate</span>
     </div>
     <div className="flex items-center space-x-1">
-      {/* Use accent for Proficient */}
-      <span className="h-3 w-3 rounded-sm bg-accent border border-border"></span>
+      {/* Use success (green) for Proficient */}
+      <span className="h-3 w-3 rounded-sm bg-success border border-border"></span>
       <span>Proficient</span>
     </div>
   </div>
@@ -120,9 +120,9 @@ const SkillsPage: FC = () => {
       <h1 className="text-4xl font-bold mb-4 text-primary text-center">Skills & Proficiencies</h1>
       <Legend />
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-         {renderSkillCategory('Technical Skills', technicalSkills, <BrainCircuit className="mr-2 h-5 w-5 text-accent" />)}
-         {renderSkillCategory('Tools & Platforms', toolSkills, <Wrench className="mr-2 h-5 w-5 text-accent" />)}
-         {renderSkillCategory('Soft Skills', softSkills, <Users className="mr-2 h-5 w-5 text-accent" />)}
+         {renderSkillCategory('Technical Skills', technicalSkills, <BrainCircuit className="mr-2 h-5 w-5 text-primary" />)}
+         {renderSkillCategory('Tools & Platforms', toolSkills, <Wrench className="mr-2 h-5 w-5 text-primary" />)}
+         {renderSkillCategory('Soft Skills', softSkills, <Users className="mr-2 h-5 w-5 text-primary" />)}
       </div>
        {skills.length === 0 && (
             <p className="text-center text-muted-foreground col-span-full mt-8">No skills listed yet.</p>
