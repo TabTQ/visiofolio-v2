@@ -14,22 +14,34 @@ interface Skill {
   category: string;
 }
 
-// Updated component for single-color skill level bar using Progress
+// Thresholds for skill levels
+const thresholds = { basic: 33, intermediate: 66, proficient: 100 };
+
+// Updated component for single-color skill level bar using Progress based on category
 const SkillLevelBar: FC<{ level: number }> = ({ level }) => {
-  const thresholds = { basic: 33, intermediate: 66, proficient: 100 };
-  let progressBarClass = 'bg-muted'; // Default for 0%
-  let title = 'No Proficiency (0%)';
+  let progressBarClass = 'bg-muted'; // Default for 0 or invalid
+  let progressValue = 0;
+  let title = 'Unknown';
 
   if (level > 0 && level <= thresholds.basic) {
     progressBarClass = 'bg-warning'; // Yellow for Basic
-    title = `Basic (${level}%)`;
+    progressValue = thresholds.basic; // Represent Basic as 33% filled
+    title = 'Basic';
   } else if (level > thresholds.basic && level <= thresholds.intermediate) {
     progressBarClass = 'bg-accent'; // Orange for Intermediate
-    title = `Intermediate (${level}%)`;
+    progressValue = thresholds.intermediate; // Represent Intermediate as 66% filled
+    title = 'Intermediate';
   } else if (level > thresholds.intermediate) {
     progressBarClass = 'bg-success'; // Green for Proficient
-    title = `Proficient (${level}%)`;
+    progressValue = thresholds.proficient; // Represent Proficient as 100% filled
+    title = 'Proficient';
   }
+
+  // Handle level 0 explicitly if needed, otherwise it uses the default 'muted'
+  if (level === 0) {
+    title = 'No Proficiency';
+  }
+
 
   return (
     <TooltipProvider delayDuration={100}>
@@ -37,7 +49,7 @@ const SkillLevelBar: FC<{ level: number }> = ({ level }) => {
         <TooltipTrigger asChild>
           {/* Ensure Progress component itself has a defined height, default is h-4, use h-3 if desired */}
           <Progress
-            value={level}
+            value={progressValue} // Use categorical value
             className="h-3 w-full mt-1 cursor-default" // Added cursor-default
             indicatorClassName={cn("transition-colors duration-500", progressBarClass)} // Apply color class to indicator
           />
@@ -67,21 +79,21 @@ const SkillCategoryIcon: FC<{ category: string }> = ({ category }) => {
   }
 };
 
-// Updated Legend component to explain the single bar color
+// Updated Legend component to explain the single bar color categories
 const Legend = () => (
   <div className="mb-8 flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
     <span className="font-medium mr-2">Proficiency Level:</span>
     <div className="flex items-center space-x-1">
       <span className="h-3 w-3 rounded-sm bg-warning border border-border"></span>
-      <span>Basic (1-33%)</span>
+      <span>Basic</span>
     </div>
     <div className="flex items-center space-x-1">
        <span className="h-3 w-3 rounded-sm bg-accent border border-border"></span>
-      <span>Intermediate (34-66%)</span>
+      <span>Intermediate</span>
     </div>
     <div className="flex items-center space-x-1">
       <span className="h-3 w-3 rounded-sm bg-success border border-border"></span>
-      <span>Proficient (67-100%)</span>
+      <span>Proficient</span>
     </div>
   </div>
 );
@@ -96,6 +108,9 @@ const SkillsPage: FC = () => {
   const renderSkillCategory = (title: string, categorySkills: Skill[], icon: React.ReactNode) => {
       if (categorySkills.length === 0) return null; // Don't render empty categories
 
+     // Sort skills within the category alphabetically by name for consistent display
+     const sortedSkills = [...categorySkills].sort((a, b) => a.name.localeCompare(b.name));
+
      return (
         <Card className="shadow-lg bg-card transition-shadow duration-300 hover:shadow-xl">
             <CardHeader>
@@ -104,7 +119,7 @@ const SkillsPage: FC = () => {
                 </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-                {categorySkills.map((skill) => (
+                {sortedSkills.map((skill) => (
                 <div key={skill.id}>
                     <span className="text-sm font-medium text-foreground">{skill.name}</span>
                     <SkillLevelBar level={skill.level} />
