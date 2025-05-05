@@ -4,7 +4,7 @@ import { Home, Briefcase, GraduationCap, Code, UserCircle, Menu, Phone } from 'l
 import portfolioData from '@/config/portfolio-data.json'; // Import config data
 
 export const Header = () => {
-  const { name, mobile } = portfolioData.personalInfo;
+  const { name } = portfolioData.personalInfo; // Removed mobile from here
 
   return (
     <header className="bg-primary text-primary-foreground shadow-md sticky top-0 z-50">
@@ -12,10 +12,7 @@ export const Header = () => {
         <Link href="/" passHref>
           <div className="flex flex-col items-start cursor-pointer hover:opacity-80 transition-opacity">
              <span className="text-2xl font-bold">{name}</span> {/* Use name from config */}
-             {/* Explicitly set text color to white or a light gray that contrasts well */}
-             <span className="text-xs text-white flex items-center mt-0.5 opacity-90"> {/* Use text-white or similar */}
-                <Phone className="mr-1 h-3 w-3" /> {mobile} {/* Use mobile from config */}
-            </span>
+             {/* Removed mobile number display from here */}
           </div>
         </Link>
         <div className="hidden md:flex space-x-2">

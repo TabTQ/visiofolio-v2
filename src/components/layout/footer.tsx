@@ -1,10 +1,10 @@
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail, Phone } from 'lucide-react';
 import portfolioData from '@/config/portfolio-data.json'; // Import config data
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const { github, linkedin } = portfolioData.personalInfo.socialLinks;
-  const { email, name, footerCopyrightName } = portfolioData.personalInfo;
+  const { email, name, mobile } = portfolioData.personalInfo; // Added mobile
 
   return (
     <footer className="bg-primary text-primary-foreground mt-12 py-6">
@@ -26,8 +26,14 @@ export const Footer = () => {
               </a>
            )}
          </div>
-        <p className="text-sm text-muted-foreground">&copy; {currentYear} {footerCopyrightName}. All rights reserved.</p>
+        {/* Removed copyright line */}
          <p className="text-xs text-muted-foreground/70 mt-1">Designed & Built by {name}</p>
+         {/* Added mobile number below */}
+          {mobile && (
+            <p className="text-xs text-white flex items-center justify-center mt-1 opacity-90"> {/* Use text-white or primary-foreground */}
+                <Phone className="mr-1 h-3 w-3" /> {mobile}
+            </p>
+          )}
       </div>
     </footer>
   );
