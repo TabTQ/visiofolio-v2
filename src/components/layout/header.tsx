@@ -7,7 +7,7 @@ export const Header = () => {
     <header className="bg-primary text-primary-foreground shadow-md sticky top-0 z-50">
       <nav className="container mx-auto px-4 py-3 flex justify-between items-center">
         <Link href="/" passHref>
-          <span className="text-2xl font-bold cursor-pointer hover:opacity-80 transition-opacity">VisioFolio</span>
+          <span className="text-2xl font-bold cursor-pointer hover:opacity-80 transition-opacity">[Your Name]</span>
         </Link>
         <div className="hidden md:flex space-x-2">
           <Button variant="ghost" asChild className="text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground">

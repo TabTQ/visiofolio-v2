@@ -16,7 +16,7 @@ export const Footer = () => {
              <Mail className="h-6 w-6" />
            </a>
          </div>
-        <p className="text-sm text-muted-foreground">&copy; {currentYear} VisioFolio. All rights reserved.</p>
+        <p className="text-sm text-muted-foreground">&copy; {currentYear} StarT3Tech. All rights reserved.</p>
          <p className="text-xs text-muted-foreground/70 mt-1">Designed & Built by [Your Name]</p>
       </div>
     </footer>
