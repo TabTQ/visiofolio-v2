@@ -77,7 +77,7 @@ const SkillsPage: FC = () => {
 
 
   return (
-    <div className="container mx-auto px-4 py-8 page-load-fade-in">
+    <div className="container mx-auto px-4 py-8 animate-fade-in">
       <h1 className="text-4xl font-bold mb-8 text-primary text-center">Skills & Proficiencies</h1>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
          {renderSkillCategory('Technical Skills', technicalSkills, <BrainCircuit className="mr-2 h-5 w-5 text-accent" />)}

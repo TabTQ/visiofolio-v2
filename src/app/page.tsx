@@ -6,7 +6,7 @@ import { ThreeScene } from '@/components/three-scene';
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-10rem)] page-load-fade-in">
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-10rem)] animate-fade-in">
       <div className="relative w-full h-64 mb-8 rounded-lg overflow-hidden shadow-lg">
          <ThreeScene />
       </div>

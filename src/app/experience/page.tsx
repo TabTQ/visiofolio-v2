@@ -62,7 +62,7 @@ const experiences: ExperienceItem[] = [
 
 const ExperiencePage: FC = () => {
   return (
-    <div className="container mx-auto px-4 py-8 page-load-fade-in">
+    <div className="container mx-auto px-4 py-8 animate-fade-in">
       <h1 className="text-4xl font-bold mb-8 text-primary text-center">Professional Experience</h1>
       <div className="space-y-8">
         {experiences.map((exp) => (

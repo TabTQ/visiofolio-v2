@@ -75,7 +75,7 @@ const AcademicIcon: FC<{ type: AcademicItem['type'] }> = ({ type }) => {
 
 const AcademicsPage: FC = () => {
   return (
-    <div className="container mx-auto px-4 py-8 page-load-fade-in">
+    <div className="container mx-auto px-4 py-8 animate-fade-in">
       <h1 className="text-4xl font-bold mb-8 text-primary text-center">Academic Background</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {academics.map((item) => (
