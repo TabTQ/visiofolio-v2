@@ -12,7 +12,8 @@ export const Header = () => {
         <Link href="/" passHref>
           <div className="flex flex-col items-start cursor-pointer hover:opacity-80 transition-opacity">
              <span className="text-2xl font-bold">{name}</span> {/* Use name from config */}
-             <span className="text-xs text-primary-foreground flex items-center mt-0.5"> {/* Changed text color here */}
+             {/* Explicitly set text color to white or a light gray that contrasts well */}
+             <span className="text-xs text-white flex items-center mt-0.5 opacity-90"> {/* Use text-white or similar */}
                 <Phone className="mr-1 h-3 w-3" /> {mobile} {/* Use mobile from config */}
             </span>
           </div>
