@@ -27,7 +27,7 @@ export const Footer = () => {
            )}
          </div>
         {/* Removed copyright line */}
-         <p className="text-xs text-muted-foreground/70 mt-1">Designed & Built by {name}</p>
+         <p className="text-xs text-white opacity-90 mt-1">Designed & Built by {name}</p> {/* Updated class */}
          {/* Added mobile number below */}
           {mobile && (
             <p className="text-xs text-white flex items-center justify-center mt-1 opacity-90"> {/* Use text-white or primary-foreground */}
