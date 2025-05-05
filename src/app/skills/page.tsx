@@ -1,49 +1,52 @@
 import type { FC } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress'; // Import Progress
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"; // Import Tooltip components
 import { BrainCircuit, Wrench, Users } from 'lucide-react';
 import portfolioData from '@/config/portfolio-data.json'; // Import config data
+import { cn } from "@/lib/utils"; // Import cn for conditional classes
 
-// Define skill structure (can potentially be moved to a types file)
+// Define skill structure
 interface Skill {
   id: string;
   name: string;
   level: number; // Proficiency level (0-100)
-  category: string; // Keep flexible from JSON
+  category: string;
 }
 
-// New component for segmented skill level bar
+// Updated component for single-color skill level bar using Progress
 const SkillLevelBar: FC<{ level: number }> = ({ level }) => {
   const thresholds = { basic: 33, intermediate: 66, proficient: 100 };
-  // Use theme colors for segments
-  const colors = {
-    basic: 'bg-warning', // Use warning (yellow) for basic
-    intermediate: 'bg-accent', // Use accent (orange) for intermediate
-    proficient: 'bg-success', // Use success (green) for proficient
-    empty: 'bg-background', // Background for empty segments
-  };
+  let progressBarClass = 'bg-muted'; // Default for 0%
+  let title = 'No Proficiency (0%)';
 
-  const getSegmentClass = (segment: 'basic' | 'intermediate' | 'proficient') => {
-    if (segment === 'basic' && level > 0) return colors.basic;
-    if (segment === 'intermediate' && level > thresholds.basic) return colors.intermediate;
-    if (segment === 'proficient' && level > thresholds.intermediate) return colors.proficient;
-    return colors.empty;
-  };
+  if (level > 0 && level <= thresholds.basic) {
+    progressBarClass = 'bg-warning'; // Yellow for Basic
+    title = `Basic (${level}%)`;
+  } else if (level > thresholds.basic && level <= thresholds.intermediate) {
+    progressBarClass = 'bg-accent'; // Orange for Intermediate
+    title = `Intermediate (${level}%)`;
+  } else if (level > thresholds.intermediate) {
+    progressBarClass = 'bg-success'; // Green for Proficient
+    title = `Proficient (${level}%)`;
+  }
 
   return (
-    <div className="flex h-3 w-full rounded-full overflow-hidden border border-border mt-1">
-      <div
-        className={`flex-1 ${getSegmentClass('basic')} transition-colors duration-300 border-r border-border`}
-        title={`Basic (${level > 0 ? 'Achieved' : 'Not Achieved'})`}
-      ></div>
-      <div
-        className={`flex-1 ${getSegmentClass('intermediate')} transition-colors duration-300 border-r border-border`}
-        title={`Intermediate (${level > thresholds.basic ? 'Achieved' : 'Not Achieved'})`}
-      ></div>
-       <div
-        className={`flex-1 ${getSegmentClass('proficient')} transition-colors duration-300`}
-        title={`Proficient (${level > thresholds.intermediate ? 'Achieved' : 'Not Achieved'})`}
-       ></div>
-    </div>
+    <TooltipProvider delayDuration={100}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          {/* Ensure Progress component itself has a defined height, default is h-4, use h-3 if desired */}
+          <Progress
+            value={level}
+            className="h-3 w-full mt-1 cursor-default" // Added cursor-default
+            indicatorClassName={cn("transition-colors duration-500", progressBarClass)} // Apply color class to indicator
+          />
+        </TooltipTrigger>
+        <TooltipContent side="top">
+          <p>{title}</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 };
 
@@ -54,33 +57,31 @@ const SkillCategoryIcon: FC<{ category: string }> = ({ category }) => {
   const lowerCaseCategory = category.toLowerCase();
   switch (lowerCaseCategory) {
     case 'technical':
-      return <BrainCircuit className="mr-2 h-5 w-5 text-primary" />; // Changed icon color to primary
+      return <BrainCircuit className="mr-2 h-5 w-5 text-primary" />;
     case 'tools':
-      return <Wrench className="mr-2 h-5 w-5 text-primary" />; // Changed icon color to primary
-    case 'soft skills': // Match the case from JSON if needed, or keep consistent
-       return <Users className="mr-2 h-5 w-5 text-primary" />; // Changed icon color to primary
-    default: // Handle unexpected categories gracefully
-      return <BrainCircuit className="mr-2 h-5 w-5 text-muted-foreground" />; // Default icon
+      return <Wrench className="mr-2 h-5 w-5 text-primary" />;
+    case 'soft skills':
+       return <Users className="mr-2 h-5 w-5 text-primary" />;
+    default:
+      return <BrainCircuit className="mr-2 h-5 w-5 text-muted-foreground" />;
   }
 };
 
-// Legend component to explain the colors
+// Updated Legend component to explain the single bar color
 const Legend = () => (
   <div className="mb-8 flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+    <span className="font-medium mr-2">Proficiency Level:</span>
     <div className="flex items-center space-x-1">
-      {/* Use warning (yellow) for Basic */}
       <span className="h-3 w-3 rounded-sm bg-warning border border-border"></span>
-      <span>Basic</span>
+      <span>Basic (1-33%)</span>
     </div>
     <div className="flex items-center space-x-1">
-      {/* Use accent (orange) for Intermediate */}
        <span className="h-3 w-3 rounded-sm bg-accent border border-border"></span>
-      <span>Intermediate</span>
+      <span>Intermediate (34-66%)</span>
     </div>
     <div className="flex items-center space-x-1">
-      {/* Use success (green) for Proficient */}
       <span className="h-3 w-3 rounded-sm bg-success border border-border"></span>
-      <span>Proficient</span>
+      <span>Proficient (67-100%)</span>
     </div>
   </div>
 );
