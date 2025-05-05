@@ -1,12 +1,11 @@
 'use client';
 
-import { useState } from 'react';
 import type { FC } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+// Select components removed as they are no longer used
 import { Code, Eye } from 'lucide-react';
 
 // Define project data structure
@@ -19,7 +18,7 @@ interface Project {
   tags: string[];
   liveUrl?: string;
   repoUrl?: string;
-  type: 'Web App' | 'Mobile App' | 'Data Science' | 'Design';
+  type: 'Web App' | 'Mobile App' | 'Data Science' | 'Design'; // Keep type for CardDescription
 }
 
 // Sample project data
@@ -76,19 +75,24 @@ const projects: Project[] = [
   },
 ];
 
-const projectTypes = ['All', 'Web App', 'Mobile App', 'Data Science', 'Design'] as const;
-type ProjectType = typeof projectTypes[number];
+// No longer need projectTypes or ProjectType
+// const projectTypes = ['All', 'Web App', 'Mobile App', 'Data Science', 'Design'] as const;
+// type ProjectType = typeof projectTypes[number];
 
 
 const ProjectsPage: FC = () => {
-  const [filter, setFilter] = useState<ProjectType>('All');
+  // Removed useState for filter
+  // const [filter, setFilter] = useState<ProjectType>('All');
 
-  const filteredProjects = filter === 'All' ? projects : projects.filter((p) => p.type === filter);
+  // Directly use the projects array, no filtering needed here anymore
+  // const filteredProjects = filter === 'All' ? projects : projects.filter((p) => p.type === filter);
 
   return (
     <div className="container mx-auto px-4 py-8 animate-fade-in">
-      <h1 className="text-4xl font-bold mb-8 text-primary text-center">My Projects</h1>
+      <h1 className="text-4xl font-bold mb-12 text-primary text-center">My Projects</h1> {/* Increased bottom margin */}
 
+      {/* Removed filter dropdown section */}
+      {/*
       <div className="mb-8 flex justify-center">
          <Select value={filter} onValueChange={(value: ProjectType) => setFilter(value)}>
           <SelectTrigger className="w-[180px] bg-card text-card-foreground shadow">
@@ -103,10 +107,11 @@ const ProjectsPage: FC = () => {
           </SelectContent>
         </Select>
       </div>
-
+      */}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredProjects.map((project) => (
+        {/* Map directly over the 'projects' array */}
+        {projects.map((project) => (
           <Card key={project.id} className="flex flex-col overflow-hidden shadow-lg subtle-hover transition-all duration-300 ease-in-out hover:shadow-xl bg-card">
             <div className="relative h-48 w-full">
               <Image
@@ -119,7 +124,7 @@ const ProjectsPage: FC = () => {
             </div>
             <CardHeader>
               <CardTitle className="text-xl font-semibold text-primary">{project.title}</CardTitle>
-              <CardDescription className="text-muted-foreground pt-1">{project.type}</CardDescription>
+              <CardDescription className="text-muted-foreground pt-1">{project.type}</CardDescription> {/* Still show type */}
             </CardHeader>
             <CardContent className="flex-grow">
               <p className="text-foreground mb-4">{project.description}</p>
@@ -148,8 +153,12 @@ const ProjectsPage: FC = () => {
           </Card>
         ))}
       </div>
-       {filteredProjects.length === 0 && (
+       {/* Removed check for filteredProjects.length === 0 as filtering is removed */}
+       {/* {filteredProjects.length === 0 && (
           <p className="text-center text-muted-foreground col-span-full mt-8">No projects found for this filter.</p>
+        )} */}
+         {projects.length === 0 && ( // Add a check in case the projects array is empty initially
+          <p className="text-center text-muted-foreground col-span-full mt-8">No projects listed yet.</p>
         )}
     </div>
   );
