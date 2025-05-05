@@ -1,0 +1,202 @@
+{
+  "personalInfo": {
+    "name": "Your Name",
+    "mobile": "+1 (123) 456-7890",
+    "email": "your.email@example.com",
+    "profilePicture": "https://picsum.photos/seed/profile/300/300",
+    "profilePictureHint": "professional headshot portrait",
+    "bio": "A passionate Senior Software Engineer specializing in building modern, scalable web applications. Welcome to my portfolio where I showcase my skills, projects, and professional experience.",
+    "socialLinks": {
+      "github": "https://github.com/yourusername",
+      "linkedin": "https://linkedin.com/in/yourusername"
+    },
+    "footerCopyrightName": "StarT3Tech"
+  },
+  "projects": [
+    {
+      "id": "proj1",
+      "title": "E-commerce Platform",
+      "description": "A full-featured online store with user authentication, product catalog, cart, and checkout.",
+      "imageUrl": "https://picsum.photos/seed/proj1/600/400",
+      "imageHint": "online store shopping cart",
+      "tags": ["React", "Node.js", "PostgreSQL", "Stripe"],
+      "liveUrl": "#",
+      "repoUrl": "#",
+      "type": "Web App"
+    },
+    {
+      "id": "proj2",
+      "title": "Task Management App",
+      "description": "A mobile application for organizing tasks, setting reminders, and collaborating with teams.",
+      "imageUrl": "https://picsum.photos/seed/proj2/600/400",
+      "imageHint": "mobile app task list",
+      "tags": ["React Native", "Firebase", "TypeScript"],
+      "repoUrl": "#",
+      "type": "Mobile App"
+    },
+    {
+      "id": "proj3",
+      "title": "Customer Churn Prediction",
+      "description": "A machine learning model to predict customer churn based on usage patterns and demographics.",
+      "imageUrl": "https://picsum.photos/seed/proj3/600/400",
+      "imageHint": "data analysis charts graphs",
+      "tags": ["Python", "Scikit-learn", "Pandas", "Jupyter"],
+      "repoUrl": "#",
+      "type": "Data Science"
+    },
+      {
+      "id": "proj4",
+      "title": "Portfolio Website V1",
+      "description": "Previous iteration of my personal portfolio website, built with vanilla HTML, CSS, and JS.",
+      "imageUrl": "https://picsum.photos/seed/proj4/600/400",
+      "imageHint": "website design code",
+      "tags": ["HTML", "CSS", "JavaScript"],
+      "liveUrl": "#",
+      "type": "Web App"
+    },
+     {
+      "id": "proj5",
+      "title": "Brand Identity Design",
+      "description": "Complete branding package including logo design, color palette, and typography for a startup.",
+      "imageUrl": "https://picsum.photos/seed/proj5/600/400",
+      "imageHint": "logo design branding",
+      "tags": ["Figma", "Illustrator", "Branding"],
+      "type": "Design"
+    }
+  ],
+  "experiences": [
+    {
+      "id": "exp1",
+      "title": "Senior Software Engineer",
+      "company": "Tech Solutions Inc.",
+      "duration": "Jan 2021 - Present",
+      "location": "San Francisco, CA",
+      "responsibilities": [
+        "Led the development of a new microservices architecture, improving system scalability by 40%.",
+        "Mentored junior engineers, fostering a collaborative team environment.",
+        "Designed and implemented key features for the flagship product using React and Node.js.",
+        "Collaborated with product managers and designers to define project requirements and timelines."
+      ],
+      "achievements": [
+        "Reduced API response times by 25% through performance optimization.",
+        "Received \"Employee of the Quarter\" award for technical leadership."
+      ]
+    },
+    {
+      "id": "exp2",
+      "title": "Software Engineer",
+      "company": "Web Innovators Co.",
+      "duration": "Jun 2018 - Dec 2020",
+      "location": "Austin, TX",
+      "responsibilities": [
+        "Developed and maintained web applications using Angular and Python/Django.",
+        "Participated in code reviews and contributed to improving code quality standards.",
+        "Worked in an Agile team, participating in daily stand-ups, sprint planning, and retrospectives.",
+        "Integrated third-party APIs for payment processing and mapping services."
+      ],
+       "achievements": [
+        "Successfully launched three major client projects on time and within budget."
+      ]
+    },
+      {
+      "id": "exp3",
+      "title": "Junior Web Developer",
+      "company": "Startup Hub",
+      "duration": "May 2017 - May 2018",
+      "location": "Remote",
+      "responsibilities": [
+        "Assisted senior developers in building and testing website features.",
+        "Fixed bugs and implemented enhancements for existing web applications.",
+        "Gained experience with version control (Git) and deployment processes."
+      ]
+    }
+  ],
+  "academics": [
+   {
+      "id": "acad1",
+      "type": "Degree",
+      "title": "Master of Science in Computer Science",
+      "institution": "Stanford University",
+      "date": "Graduated May 2018",
+      "description": "Specialization in Artificial Intelligence. Thesis: \"Novel Approaches to Natural Language Understanding\". GPA: 3.9/4.0",
+      "url": "#"
+    },
+    {
+      "id": "acad2",
+      "type": "Degree",
+      "title": "Bachelor of Science in Software Engineering",
+      "institution": "University of Texas at Austin",
+      "date": "Graduated May 2016",
+      "description": "Minor in Mathematics. Dean's List for 4 semesters. Capstone project: Real-time collaborative editor.",
+       "url": "#"
+    },
+    {
+      "id": "acad3",
+      "type": "Certification",
+      "title": "AWS Certified Solutions Architect – Associate",
+      "institution": "Amazon Web Services",
+      "date": "Issued Mar 2021",
+      "description": "Validated technical expertise in designing and deploying scalable, highly available, and fault-tolerant systems on AWS.",
+      "url": "#"
+    },
+     {
+      "id": "acad4",
+      "type": "Certification",
+      "title": "Certified ScrumMaster (CSM)",
+      "institution": "Scrum Alliance",
+      "date": "Issued Aug 2019",
+      "url": "#"
+    },
+    {
+      "id": "acad5",
+      "type": "Coursework",
+      "title": "Advanced Machine Learning",
+      "institution": "Coursera (Online)",
+      "date": "Completed Feb 2020",
+      "description": "Covered topics like deep learning, reinforcement learning, and graphical models."
+    },
+      {
+      "id": "acad6",
+      "type": "Coursework",
+      "title": "UI/UX Design Fundamentals",
+      "institution": "Interaction Design Foundation",
+      "date": "Completed Jul 2022"
+    },
+     {
+      "id": "pub1",
+      "type": "Publication",
+      "title": "Scalable Microservices on AWS",
+      "institution": "ACM Transactions on the Web",
+      "date": "Published Oct 2020",
+      "description": "Co-authored paper detailing best practices for designing and deploying large-scale microservice systems using AWS.",
+      "url": "#"
+    },
+      {
+      "id": "pub2",
+      "type": "Publication",
+      "title": "React Performance Optimization Techniques",
+      "institution": "Smashing Magazine (Online)",
+      "date": "Published Apr 2022",
+      "description": "Article covering advanced techniques for optimizing React application performance.",
+      "url": "#"
+    }
+  ],
+  "skills": [
+    { "id": "sk1", "name": "JavaScript / TypeScript", "level": 95, "category": "Technical" },
+    { "id": "sk2", "name": "React / Next.js", "level": 90, "category": "Technical" },
+    { "id": "sk3", "name": "Node.js / Express", "level": 85, "category": "Technical" },
+    { "id": "sk4", "name": "Python / Django", "level": 75, "category": "Technical" },
+    { "id": "sk5", "name": "SQL / PostgreSQL", "level": 80, "category": "Technical" },
+    { "id": "sk6", "name": "HTML / CSS / Tailwind", "level": 95, "category": "Technical" },
+    { "id": "sk7", "name": "AWS / Cloud Architecture", "level": 70, "category": "Technical" },
+    { "id": "sk13", "name": "Three.js / WebGL", "level": 65, "category": "Technical" },
+    { "id": "sk8", "name": "Git / GitHub", "level": 90, "category": "Tools" },
+    { "id": "sk9", "name": "Docker", "level": 70, "category": "Tools" },
+    { "id": "sk10", "name": "Figma", "level": 80, "category": "Tools" },
+    { "id": "sk14", "name": "Jira / Agile Tools", "level": 85, "category": "Tools" },
+    { "id": "sk11", "name": "Communication", "level": 90, "category": "Soft Skills" },
+    { "id": "sk12", "name": "Problem Solving", "level": 95, "category": "Soft Skills" },
+    { "id": "sk15", "name": "Teamwork & Collaboration", "level": 90, "category": "Soft Skills" },
+    { "id": "sk16", "name": "Leadership & Mentoring", "level": 80, "category": "Soft Skills" }
+  ]
+}

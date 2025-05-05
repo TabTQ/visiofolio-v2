@@ -1,25 +1,26 @@
 import type { FC } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { BrainCircuit, Wrench, Users } from 'lucide-react'; // Minimalist line icons
+import { BrainCircuit, Wrench, Users } from 'lucide-react';
+import portfolioData from '@/config/portfolio-data.json'; // Import config data
 
+// Define skill structure (can potentially be moved to a types file)
 interface Skill {
   id: string;
   name: string;
   level: number; // Proficiency level (0-100)
-  category: 'Technical' | 'Soft Skills' | 'Tools';
+  category: string; // Keep flexible from JSON
 }
 
 // New component for segmented skill level bar
 const SkillLevelBar: FC<{ level: number }> = ({ level }) => {
   const thresholds = { basic: 33, intermediate: 66, proficient: 100 };
   const colors = {
-    basic: 'bg-muted', // Muted gray for basic fill
-    intermediate: 'bg-secondary', // Theme secondary for intermediate fill
-    proficient: 'bg-accent', // Accent color (Teal) for proficient fill
-    empty: 'bg-background', // Background color for segments not reached
+    basic: 'bg-muted',
+    intermediate: 'bg-secondary',
+    proficient: 'bg-accent',
+    empty: 'bg-background',
   };
 
-  // Determine the fill color for each segment based on the level
   const getSegmentClass = (segment: 'basic' | 'intermediate' | 'proficient') => {
     if (segment === 'basic' && level > 0) return colors.basic;
     if (segment === 'intermediate' && level > thresholds.basic) return colors.intermediate;
@@ -29,17 +30,14 @@ const SkillLevelBar: FC<{ level: number }> = ({ level }) => {
 
   return (
     <div className="flex h-3 w-full rounded-full overflow-hidden border border-border mt-1">
-      {/* Basic Segment */}
       <div
         className={`flex-1 ${getSegmentClass('basic')} transition-colors duration-300 border-r border-border`}
         title={`Basic (${level > 0 ? 'Achieved' : 'Not Achieved'})`}
       ></div>
-      {/* Intermediate Segment */}
       <div
         className={`flex-1 ${getSegmentClass('intermediate')} transition-colors duration-300 border-r border-border`}
         title={`Intermediate (${level > thresholds.basic ? 'Achieved' : 'Not Achieved'})`}
       ></div>
-      {/* Proficient Segment */}
        <div
         className={`flex-1 ${getSegmentClass('proficient')} transition-colors duration-300`}
         title={`Proficient (${level > thresholds.intermediate ? 'Achieved' : 'Not Achieved'})`}
@@ -48,43 +46,20 @@ const SkillLevelBar: FC<{ level: number }> = ({ level }) => {
   );
 };
 
+// Fetch skills data from the JSON file
+const skills: Skill[] = portfolioData.skills;
 
-const skills: Skill[] = [
-  // Technical Skills
-  { id: 'sk1', name: 'JavaScript / TypeScript', level: 95, category: 'Technical' },
-  { id: 'sk2', name: 'React / Next.js', level: 90, category: 'Technical' },
-  { id: 'sk3', name: 'Node.js / Express', level: 85, category: 'Technical' },
-  { id: 'sk4', name: 'Python / Django', level: 75, category: 'Technical' },
-  { id: 'sk5', name: 'SQL / PostgreSQL', level: 80, category: 'Technical' },
-  { id: 'sk6', name: 'HTML / CSS / Tailwind', level: 95, category: 'Technical' },
-  { id: 'sk7', name: 'AWS / Cloud Architecture', level: 70, category: 'Technical' },
-  { id: 'sk13', name: 'Three.js / WebGL', level: 65, category: 'Technical' },
-
-
-  // Tools
-  { id: 'sk8', name: 'Git / GitHub', level: 90, category: 'Tools' },
-  { id: 'sk9', name: 'Docker', level: 70, category: 'Tools' },
-  { id: 'sk10', name: 'Figma', level: 80, category: 'Tools' },
-  { id: 'sk14', name: 'Jira / Agile Tools', level: 85, category: 'Tools' },
-
-
-  // Soft Skills
-  { id: 'sk11', name: 'Communication', level: 90, category: 'Soft Skills' },
-  { id: 'sk12', name: 'Problem Solving', level: 95, category: 'Soft Skills' },
-  { id: 'sk15', name: 'Teamwork & Collaboration', level: 90, category: 'Soft Skills' },
-  { id: 'sk16', name: 'Leadership & Mentoring', level: 80, category: 'Soft Skills' },
-];
-
-const SkillCategoryIcon: FC<{ category: Skill['category'] }> = ({ category }) => {
-  switch (category) {
-    case 'Technical':
+const SkillCategoryIcon: FC<{ category: string }> = ({ category }) => {
+  const lowerCaseCategory = category.toLowerCase();
+  switch (lowerCaseCategory) {
+    case 'technical':
       return <BrainCircuit className="mr-2 h-5 w-5 text-accent" />;
-    case 'Tools':
+    case 'tools':
       return <Wrench className="mr-2 h-5 w-5 text-accent" />;
-    case 'Soft Skills':
-       return <Users className="mr-2 h-5 w-5 text-accent" />; // Using Users for soft skills/collaboration
-    default:
-      return null;
+    case 'soft skills': // Match the case from JSON if needed, or keep consistent
+       return <Users className="mr-2 h-5 w-5 text-accent" />;
+    default: // Handle unexpected categories gracefully
+      return <BrainCircuit className="mr-2 h-5 w-5 text-muted-foreground" />; // Default icon
   }
 };
 
@@ -108,38 +83,46 @@ const Legend = () => (
 
 
 const SkillsPage: FC = () => {
-  const technicalSkills = skills.filter((s) => s.category === 'Technical');
-  const toolSkills = skills.filter((s) => s.category === 'Tools');
-  const softSkills = skills.filter((s) => s.category === 'Soft Skills');
+  // Filter skills based on category string from JSON
+  const technicalSkills = skills.filter((s) => s.category.toLowerCase() === 'technical');
+  const toolSkills = skills.filter((s) => s.category.toLowerCase() === 'tools');
+  const softSkills = skills.filter((s) => s.category.toLowerCase() === 'soft skills');
 
-  const renderSkillCategory = (title: string, categorySkills: Skill[], icon: React.ReactNode) => (
-     <Card className="shadow-lg bg-card transition-shadow duration-300 hover:shadow-xl">
-        <CardHeader>
-            <CardTitle className="text-2xl font-semibold text-primary flex items-center">
-                {icon} {title}
-            </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-            {categorySkills.map((skill) => (
-            <div key={skill.id}>
-                 <span className="text-sm font-medium text-foreground">{skill.name}</span>
-                 <SkillLevelBar level={skill.level} />
-            </div>
-            ))}
-        </CardContent>
-     </Card>
-  );
+  const renderSkillCategory = (title: string, categorySkills: Skill[], icon: React.ReactNode) => {
+      if (categorySkills.length === 0) return null; // Don't render empty categories
+
+     return (
+        <Card className="shadow-lg bg-card transition-shadow duration-300 hover:shadow-xl">
+            <CardHeader>
+                <CardTitle className="text-2xl font-semibold text-primary flex items-center">
+                    {icon} {title}
+                </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+                {categorySkills.map((skill) => (
+                <div key={skill.id}>
+                    <span className="text-sm font-medium text-foreground">{skill.name}</span>
+                    <SkillLevelBar level={skill.level} />
+                </div>
+                ))}
+            </CardContent>
+        </Card>
+     );
+  }
 
 
   return (
     <div className="container mx-auto px-4 py-8 animate-fade-in">
       <h1 className="text-4xl font-bold mb-4 text-primary text-center">Skills & Proficiencies</h1>
-      <Legend /> {/* Add the legend here */}
+      <Legend />
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
          {renderSkillCategory('Technical Skills', technicalSkills, <BrainCircuit className="mr-2 h-5 w-5 text-accent" />)}
          {renderSkillCategory('Tools & Platforms', toolSkills, <Wrench className="mr-2 h-5 w-5 text-accent" />)}
          {renderSkillCategory('Soft Skills', softSkills, <Users className="mr-2 h-5 w-5 text-accent" />)}
       </div>
+       {skills.length === 0 && (
+            <p className="text-center text-muted-foreground col-span-full mt-8">No skills listed yet.</p>
+       )}
     </div>
   );
 };

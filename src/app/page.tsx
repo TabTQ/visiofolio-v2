@@ -2,9 +2,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, UserCircle } from 'lucide-react'; // Added UserCircle for placeholder icon
+import { ArrowRight } from 'lucide-react';
+import portfolioData from '@/config/portfolio-data.json'; // Import config data
 
 export default function Home() {
+  const { name, bio, profilePicture, profilePictureHint } = portfolioData.personalInfo;
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-10rem)] animate-fade-in py-12">
 
@@ -13,10 +16,10 @@ export default function Home() {
         {/* Left Side: Description */}
         <div className="flex-1 text-center md:text-left">
           <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4">
-            Hi, I&apos;m [Your Name]
+            Hi, I&apos;m {name}
           </h1>
           <p className="text-lg text-muted-foreground mb-6">
-            A passionate Senior Software Engineer specializing in building modern, scalable web applications. Welcome to my portfolio where I showcase my skills, projects, and professional experience.
+            {bio}
           </p>
            {/* You can add a CTA button here if desired */}
            {/*
@@ -29,11 +32,11 @@ export default function Home() {
         {/* Right Side: Profile Picture */}
         <div className="flex-shrink-0 w-48 h-48 md:w-64 md:h-64 relative rounded-full overflow-hidden shadow-lg border-4 border-primary">
           <Image
-            src="https://picsum.photos/seed/profile/300/300" // Placeholder image
+            src={profilePicture}
             alt="Profile Picture"
             layout="fill"
             objectFit="cover"
-            data-ai-hint="professional headshot portrait"
+            data-ai-hint={profilePictureHint}
             className="bg-muted" // Background color while loading
           />
           {/* Optional: Add an overlay or border */}
