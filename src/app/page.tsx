@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -6,6 +8,10 @@ import { ArrowRight } from 'lucide-react';
 import portfolioData from '@/config/portfolio-data.json'; // Import config data
 
 export default function Home() {
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.style.display = 'none';
+  };
+
   const { name, bio, profilePicture, profilePictureHint } = portfolioData.personalInfo;
 
   return (
@@ -38,6 +44,7 @@ export default function Home() {
             objectFit="cover"
             data-ai-hint={profilePictureHint}
             className="bg-muted" // Background color while loading
+            onError={handleImageError}
           />
           {/* Optional: Add an overlay or border */}
         </div>
