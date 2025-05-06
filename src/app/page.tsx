@@ -1,18 +1,28 @@
 'use client'
 
-import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight } from 'lucide-react';
-import portfolioData from '@/config/portfolio-data.json'; // Import config data
+import { Menu } from 'lucide-react'; // Changed from ArrowRight to Menu for better context
+import portfolioData from '@/config/portfolio-data.json';
+import { useSidebar } from '@/components/ui/sidebar'; // Import useSidebar
 
 export default function Home() {
+  const { setOpen, setOpenMobile, isMobile } = useSidebar(); // Get sidebar control functions
+
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     e.currentTarget.style.display = 'none';
   };
 
   const { name, bio, profilePicture, profilePictureHint } = portfolioData.personalInfo;
+
+  const openSidebar = () => {
+    if (isMobile) {
+      setOpenMobile(true);
+    } else {
+      setOpen(true);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-10rem)] animate-fade-in py-12">
@@ -27,12 +37,6 @@ export default function Home() {
           <p className="text-lg text-muted-foreground mb-6">
             {bio}
           </p>
-           {/* You can add a CTA button here if desired */}
-           {/*
-           <Button size="lg">
-            Contact Me <Mail className="ml-2 h-4 w-4" />
-           </Button>
-           */}
         </div>
 
         {/* Right Side: Profile Picture */}
@@ -46,7 +50,6 @@ export default function Home() {
             className="bg-muted" // Background color while loading
             onError={handleImageError}
           />
-          {/* Optional: Add an overlay or border */}
         </div>
       </div>
 
@@ -59,27 +62,10 @@ export default function Home() {
           <p className="text-lg text-muted-foreground mb-6">
             Dive deeper into my professional journey, projects, skills, and academic background.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Link href="/projects" passHref>
-              <Button variant="default" className="w-full subtle-hover bg-primary hover:bg-primary/90">
-                View Projects <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="/experience" passHref>
-              <Button variant="outline" className="w-full subtle-hover">
-                My Experience <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="/academics" passHref>
-              <Button variant="outline" className="w-full subtle-hover">
-                Academic Details <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="/skills" passHref>
-              <Button variant="outline" className="w-full subtle-hover">
-                Skills Showcase <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
+          <div className="flex justify-center">
+            <Button variant="default" size="lg" className="subtle-hover bg-primary hover:bg-primary/90" onClick={openSidebar}>
+              Explore Sections <Menu className="ml-2 h-5 w-5" />
+            </Button>
           </div>
         </CardContent>
       </Card>
