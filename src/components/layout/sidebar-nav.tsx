@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -10,7 +11,6 @@ import {
   SidebarMenuButton,
   SidebarSeparator,
 } from '@/components/ui/sidebar';
-import portfolioData from '@/config/portfolio-data.json';
 import { usePathname } from 'next/navigation';
 import type { FC } from 'react';
 
@@ -28,18 +28,12 @@ const navItems: NavItem[] = [
 ];
 
 export const SidebarNav: FC = () => {
-  const { name } = portfolioData.personalInfo;
   const pathname = usePathname();
 
   return (
     <>
-      <SidebarHeader className="p-4 border-b border-sidebar-border">
-        <Link href="/" passHref>
-          <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
-            {/* You can add a small logo/icon here if desired */}
-            <span className="text-xl font-bold text-sidebar-foreground">{name}</span>
-          </div>
-        </Link>
+      <SidebarHeader className="p-4 border-b border-sidebar-border h-[60px]">
+        {/* Name removed from here */}
       </SidebarHeader>
       <SidebarContent className="p-2">
         <SidebarMenu>
@@ -69,3 +63,4 @@ export const SidebarNav: FC = () => {
     </>
   );
 };
+
