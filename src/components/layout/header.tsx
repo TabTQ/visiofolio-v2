@@ -8,7 +8,7 @@ export const Header = () => {
 
   return (
     <header className="bg-primary text-primary-foreground shadow-md sticky top-0 z-50">
-      <nav className="container mx-auto px-4 py-3 flex justify-between items-center">
+      <nav className="container mx-auto px-4 py-6 flex justify-between items-center"> {/* Changed py-3 to py-6 */}
         <div className="flex items-center gap-3">
           <SidebarTrigger className="text-primary-foreground hover:bg-primary/80 data-[state=open]:bg-primary/80 [&_svg]:text-primary-foreground" />
           <Link href="/" passHref>
