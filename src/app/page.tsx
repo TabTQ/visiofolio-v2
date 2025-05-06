@@ -25,9 +25,10 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-10rem)] animate-fade-in py-12">
 
       {/* Profile Section */}
-      <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 mb-12 w-full max-w-4xl">
+      <div className="flex flex-col items-center gap-8 md:gap-12 mb-12 w-full max-w-4xl">
         {/* Left Side: Description */}
-        <div className="flex-1">
+        {/* Changed className from "flex-1" to "w-full max-w-2xl" to match explore card width */}
+        <div className="w-full max-w-2xl">
           <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 text-center md:text-left">
             Hi, I&apos;m {name}
           </h1>
@@ -67,3 +68,4 @@ export default function Home() {
     </div>
   );
 }
+
