@@ -1,10 +1,13 @@
+
 import Link from 'next/link';
+import Image from 'next/image';
 import portfolioData from '@/config/portfolio-data.json';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Github, Linkedin, Mail, Phone } from 'lucide-react'; // Import icons
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 export const Header = () => {
-  const { name, mobile, email } = portfolioData.personalInfo;
+  const { name, mobile, email, profilePicture, profilePictureHint } = portfolioData.personalInfo;
   const { github, linkedin } = portfolioData.personalInfo.socialLinks;
 
 
@@ -57,9 +60,14 @@ export const Header = () => {
               <Mail className="h-5 w-5" /> {/* Adjusted icon size for header */}
             </a>
           )}
+          {profilePicture && (
+            <Avatar className="h-8 w-8 ml-2 border-2 border-primary-foreground/50">
+              <AvatarImage src={profilePicture} alt={name} data-ai-hint={profilePictureHint} />
+              <AvatarFallback>{name.substring(0, 1)}</AvatarFallback>
+            </Avatar>
+          )}
         </div>
       </nav>
     </header>
   );
 };
-

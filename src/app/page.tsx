@@ -11,11 +11,7 @@ import { useSidebar } from '@/components/ui/sidebar'; // Import useSidebar
 export default function Home() {
   const { setOpen, setOpenMobile, isMobile } = useSidebar(); // Get sidebar control functions
 
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    e.currentTarget.style.display = 'none';
-  };
-
-  const { name, bio, profilePicture, profilePictureHint } = portfolioData.personalInfo;
+  const { name, bio } = portfolioData.personalInfo; // Removed profilePicture and profilePictureHint
 
   const openSidebar = () => {
     if (isMobile) {
@@ -43,18 +39,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Right Side: Profile Picture */}
-        <div className="flex-shrink-0 w-48 h-48 md:w-64 md:h-64 relative rounded-full overflow-hidden shadow-lg border-4 border-primary">
-          <Image
-            src={profilePicture}
-            alt="Profile Picture"
-            layout="fill"
-            objectFit="cover"
-            data-ai-hint={profilePictureHint}
-            className="bg-muted" // Background color while loading
-            onError={handleImageError}
-          />
-        </div>
+        {/* Right Side: Profile Picture - REMOVED FROM HERE */}
       </div>
 
       {/* Navigation Links Card */}
