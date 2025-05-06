@@ -9,10 +9,10 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarSeparator,
 } from '@/components/ui/sidebar';
 import { usePathname } from 'next/navigation';
 import type { FC } from 'react';
+import { useSidebar } from '@/components/ui/sidebar'; // Import useSidebar
 
 interface NavItem {
   href: string;
@@ -30,6 +30,19 @@ const navItems: NavItem[] = [
 
 export const SidebarNav: FC = () => {
   const pathname = usePathname();
+  const { isMobile, setOpenMobile, open, setOpen } = useSidebar(); // Get sidebar context
+
+  const handleNavItemClick = () => {
+    if (isMobile) {
+      setOpenMobile(false); // Close mobile sheet
+    } else {
+      // For desktop, if sidebar is collapsible (icon mode) and currently expanded, collapse it
+      // This assumes the main sidebar in layout.tsx uses collapsible="icon"
+      if (open) { // 'open' here refers to the expanded state of the desktop sidebar
+        setOpen(false);
+      }
+    }
+  };
 
   return (
     <>
@@ -45,6 +58,7 @@ export const SidebarNav: FC = () => {
                 isActive={pathname === item.href}
                 className="justify-start"
                 tooltip={{ children: item.label, side: 'right', align: 'center' }}
+                onClick={handleNavItemClick} // Add onClick handler here
               >
                 <Link href={item.href}>
                   <item.icon />
@@ -64,3 +78,4 @@ export const SidebarNav: FC = () => {
     </>
   );
 };
+
