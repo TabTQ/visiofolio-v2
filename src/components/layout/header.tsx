@@ -61,7 +61,7 @@ export const Header = () => {
             </a>
           )}
           {profilePicture && (
-            <Avatar className="h-14 w-14 ml-2 border-2 border-primary-foreground/50"> {/* Increased size */}
+            <Avatar className="h-16 w-16 ml-2 border-2 border-primary-foreground/50"> {/* Increased size */}
               <AvatarImage src={profilePicture} alt={name} data-ai-hint={profilePictureHint} />
               <AvatarFallback>{name.substring(0, 1)}</AvatarFallback>
             </Avatar>
