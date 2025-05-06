@@ -1,3 +1,4 @@
+
 'use client'
 
 import Image from 'next/image';
@@ -30,13 +31,16 @@ export default function Home() {
       {/* Profile Section */}
       <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 mb-12 w-full max-w-4xl">
         {/* Left Side: Description */}
-        <div className="flex-1 text-center md:text-left">
-          <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4">
+        <div className="flex-1">
+          <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 text-center md:text-left">
             Hi, I&apos;m {name}
           </h1>
-          <p className="text-lg text-muted-foreground mb-6">
-            {bio}
-          </p>
+          {/* Text box for bio */}
+          <div className="bg-card p-6 rounded-lg shadow-lg text-left">
+            <p className="text-lg text-foreground">
+              {bio}
+            </p>
+          </div>
         </div>
 
         {/* Right Side: Profile Picture */}
