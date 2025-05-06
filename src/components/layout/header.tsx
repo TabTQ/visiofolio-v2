@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import portfolioData from '@/config/portfolio-data.json';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { Github, Linkedin, Mail } from 'lucide-react'; // Import icons
+import { Github, Linkedin, Mail, Phone } from 'lucide-react'; // Import icons
 
 export const Header = () => {
-  const { name } = portfolioData.personalInfo;
+  const { name, mobile, email } = portfolioData.personalInfo;
   const { github, linkedin } = portfolioData.personalInfo.socialLinks;
-  const { email } = portfolioData.personalInfo;
+
 
   return (
     <header className="bg-primary text-primary-foreground shadow-md sticky top-0 z-50">
@@ -16,6 +16,12 @@ export const Header = () => {
           <Link href="/" passHref>
             <div className="flex flex-col items-start cursor-pointer hover:opacity-80 transition-opacity">
               <span className="text-2xl font-bold">{name}</span>
+              {mobile && (
+                <div className="flex items-center text-xs text-primary-foreground/80 mt-0.5">
+                  <Phone className="mr-1 h-3 w-3" />
+                  <span>{mobile}</span>
+                </div>
+              )}
             </div>
           </Link>
         </div>
@@ -56,3 +62,4 @@ export const Header = () => {
     </header>
   );
 };
+
