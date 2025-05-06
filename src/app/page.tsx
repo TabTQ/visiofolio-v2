@@ -36,7 +36,7 @@ export default function Home() {
             Hi, I&apos;m {name}
           </h1>
           {/* Text box for bio */}
-          <div className="bg-card p-6 rounded-lg shadow-lg text-left">
+          <div className="bg-card p-6 rounded-lg shadow-lg text-justify">
             <p className="text-lg text-foreground">
               {bio}
             </p>
