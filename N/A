@@ -1,0 +1,2 @@
+-0` (for `offcanvas`) by default, and these widths should be maintained whether `state
+  ` is `expanded` or `collapsed` when `collapsible === "offcanvas"`. This ensures that the layout is consistent in this scenario. The conditional class should be removed, or its logic should be reevaluated to ensure it does not affect the `offcanvas` variant.
