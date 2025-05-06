@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -88,7 +87,9 @@ const SidebarProvider = React.forwardRef<
         }
 
         // This sets the cookie to keep the sidebar state.
-        document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
+        if (typeof document !== 'undefined') {
+          document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
+        }
       },
       [setOpenProp, open]
     )
@@ -179,7 +180,7 @@ const Sidebar = React.forwardRef<
     },
     ref
   ) => {
-    const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+    const { isMobile, state, openMobile, setOpenMobile, open } = useSidebar() // Added `open` here
 
     if (collapsible === "none") {
       return (
@@ -215,12 +216,15 @@ const Sidebar = React.forwardRef<
         </Sheet>
       )
     }
+    
+    // `open` is derived from context, `state` is also from context ('expanded' or 'collapsed')
+    // For non-mobile, `collapsible` prop and `variant` prop are used directly.
 
     return (
       <div
         ref={ref}
         className="group peer hidden md:block text-sidebar-foreground"
-        data-state={state}
+        data-state={state} // `state` is "expanded" or "collapsed"
         data-collapsible={state === "collapsed" ? collapsible : ""}
         data-variant={variant}
         data-side={side}
@@ -228,17 +232,25 @@ const Sidebar = React.forwardRef<
         {/* This is what handles the sidebar gap on desktop */}
         <div
           className={cn(
-            "duration-200 relative h-svh w-[--sidebar-width] bg-transparent transition-[width] ease-linear",
-            "group-data-[collapsible=offcanvas]:w-0",
-            "group-data-[side=right]:rotate-180",
-            variant === "floating" || variant === "inset"
-              ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4))]"
-              : "group-data-[collapsible=icon]:w-[--sidebar-width-icon]"
+            "duration-200 relative h-svh bg-transparent transition-[width] ease-linear",
+            "group-data-[side=right]:rotate-180", // General style for right-sided sidebar
+
+            // Conditional width logic:
+            {
+              'w-0': state === "expanded" || collapsible === "offcanvas", // Overlay when expanded or if offcanvas
+              'w-[var(--sidebar-width-icon)]': state === "collapsed" && collapsible === "icon" && (variant === "sidebar"),
+              'w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4))]': state === "collapsed" && collapsible === "icon" && (variant === "floating" || variant === "inset"),
+              // Fallback width if needed, though collapsible="none" is handled by returning a different structure.
+              // If state is "collapsed" and collapsible is not "icon" or "offcanvas", it implies a non-collapsing sidebar that remains its full width.
+              // However, `collapsible="none"` already returns early. So this fallback might not be hit for standard `collapsible` values.
+              // Default to full width if state is collapsed and it's not icon/offcanvas (should ideally not happen with current `collapsible` prop types)
+              'w-[--sidebar-width]': state === "collapsed" && collapsible !== "icon" && collapsible !== "offcanvas", 
+            }
           )}
         />
         <div
           className={cn(
-            "duration-200 fixed inset-y-0 z-50 hidden h-svh w-[--sidebar-width] transition-[left,right,width] ease-linear md:flex", // Increased z-index to 50
+            "duration-200 fixed inset-y-0 z-[60] hidden h-svh w-[--sidebar-width] transition-[left,right,width] ease-linear md:flex", // Increased z-index to 60
             side === "left"
               ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
               : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
@@ -766,4 +778,3 @@ export {
   // SidebarTrigger, // SidebarTrigger removed from exports
   useSidebar,
 }
-
