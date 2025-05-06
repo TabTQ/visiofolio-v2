@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Menu } from 'lucide-react'; // Changed from ArrowRight to Menu for better context
+import { Menu } from 'lucide-react';
 import portfolioData from '@/config/portfolio-data.json';
 import { useSidebar } from '@/components/ui/sidebar'; // Import useSidebar
 
@@ -63,8 +63,14 @@ export default function Home() {
             Dive deeper into my professional journey, projects, skills, and academic background.
           </p>
           <div className="flex justify-center">
-            <Button variant="default" size="lg" className="subtle-hover bg-primary hover:bg-primary/90" onClick={openSidebar}>
-              Explore Sections <Menu className="ml-2 h-5 w-5" />
+            <Button
+              variant="default"
+              size="lg"
+              className="subtle-hover bg-primary hover:bg-primary/90 px-3 [&_svg]:size-6"
+              onClick={openSidebar}
+              aria-label="Explore Sections"
+            >
+              <Menu />
             </Button>
           </div>
         </CardContent>
