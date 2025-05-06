@@ -1,65 +1,28 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Home, Briefcase, GraduationCap, Code, UserCircle, Menu, Phone } from 'lucide-react';
+import { UserCircle } from 'lucide-react';
 import portfolioData from '@/config/portfolio-data.json';
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
+import { SidebarTrigger } from '@/components/ui/sidebar';
+
 
 export const Header = () => {
-  const { name } = portfolioData.personalInfo; // Removed mobile from here
+  const { name } = portfolioData.personalInfo;
 
   return (
     <header className="bg-primary text-primary-foreground shadow-md sticky top-0 z-50">
       <nav className="container mx-auto px-4 py-3 flex justify-between items-center">
-        <Link href="/" passHref>
-          <div className="flex flex-col items-start cursor-pointer hover:opacity-80 transition-opacity">
-             <span className="text-2xl font-bold">{name}</span> {/* Use name from config */}
-             {/* Removed mobile number display from here */}
-          </div>
-        </Link>
-        <div className="hidden md:flex space-x-2">
-          <Button variant="ghost" asChild className="text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground">
-            <Link href="/"> <Home className="mr-1 h-4 w-4" /> Home</Link>
-          </Button>
-          <Button variant="ghost" asChild className="text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground">
-            <Link href="/projects"> <Code className="mr-1 h-4 w-4" /> Projects</Link>
-          </Button>
-           <Button variant="ghost" asChild className="text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground">
-            <Link href="/experience"> <Briefcase className="mr-1 h-4 w-4" /> Experience</Link>
-          </Button>
-           <Button variant="ghost" asChild className="text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground">
-            <Link href="/academics"> <GraduationCap className="mr-1 h-4 w-4" /> Academics</Link>
-          </Button>
+        <div className="flex items-center gap-3">
+          <SidebarTrigger className="text-primary-foreground hover:bg-primary/80 data-[state=open]:bg-primary/80 [&_svg]:text-primary-foreground" />
+          <Link href="/" passHref>
+            <div className="flex flex-col items-start cursor-pointer hover:opacity-80 transition-opacity">
+              <span className="text-2xl font-bold">{name}</span>
+            </div>
+          </Link>
+        </div>
+        <div className="flex items-center">
           <Button variant="ghost" asChild className="text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground">
             <Link href="/skills"> <UserCircle className="mr-1 h-4 w-4" /> Skills</Link>
           </Button>
-        </div>
-        <div className="md:hidden">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary/80">
-                <Menu className="h-6 w-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent className="flex flex-col gap-4">
-              <SheetClose asChild>
-                <Link href="/" className="flex items-center gap-2">
-                  <Home className="h-4 w-4" /> Home
-                </Link>
-              </SheetClose>
-              <SheetClose asChild>
-                <Link href="/projects" className="flex items-center gap-2"> <Code className="h-4 w-4" /> Projects </Link>
-              </SheetClose>
-              <SheetClose asChild>
-                <Link href="/experience" className="flex items-center gap-2"> <Briefcase className="h-4 w-4" /> Experience</Link>
-              </SheetClose>
-              <SheetClose asChild>
-                <Link href="/academics" className="flex items-center gap-2"> <GraduationCap className="h-4 w-4" /> Academics </Link>
-              </SheetClose>
-              <SheetClose asChild>
-                <Link href="/skills" className="flex items-center gap-2"> <UserCircle className="h-4 w-4" /> Skills</Link>
-              </SheetClose>
-            </SheetContent>
-          </Sheet>
         </div>
       </nav>
     </header>

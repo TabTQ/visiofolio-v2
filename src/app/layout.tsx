@@ -5,6 +5,8 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from "@/components/ui/toaster";
 import portfolioData from '@/config/portfolio-data.json'; // Import config data
+import { SidebarProvider, Sidebar, SidebarInset } from '@/components/ui/sidebar';
+import { SidebarNav } from '@/components/layout/sidebar-nav';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,11 +31,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} font-sans antialiased flex flex-col min-h-screen bg-secondary`}
       >
-        <Header />
-        <main className="flex-grow container mx-auto px-4 py-8">
-          {children}
-        </main>
-        <Footer />
+        <SidebarProvider defaultOpen={true}>
+          <Sidebar collapsible="icon" side="left" className="border-r border-sidebar-border bg-sidebar text-sidebar-foreground">
+            <SidebarNav />
+          </Sidebar>
+          <SidebarInset>
+            <Header />
+            <main className="flex-grow container mx-auto px-4 py-8">
+              {children}
+            </main>
+            <Footer />
+          </SidebarInset>
+        </SidebarProvider>
         <Toaster />
       </body>
     </html>
