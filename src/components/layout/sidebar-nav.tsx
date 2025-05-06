@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Home, Briefcase, GraduationCap, Code } from 'lucide-react';
+import { Home, Briefcase, GraduationCap, Code, UserCircle } from 'lucide-react'; // Added UserCircle
 import {
   SidebarHeader,
   SidebarContent,
@@ -25,6 +25,7 @@ const navItems: NavItem[] = [
   { href: '/projects', label: 'Projects', icon: Code },
   { href: '/experience', label: 'Experience', icon: Briefcase },
   { href: '/academics', label: 'Academics', icon: GraduationCap },
+  { href: '/skills', label: 'Skills', icon: UserCircle }, // Added Skills link
 ];
 
 export const SidebarNav: FC = () => {
@@ -63,4 +64,3 @@ export const SidebarNav: FC = () => {
     </>
   );
 };
-

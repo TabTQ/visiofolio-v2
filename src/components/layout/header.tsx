@@ -1,6 +1,4 @@
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { UserCircle } from 'lucide-react';
 import portfolioData from '@/config/portfolio-data.json';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 
@@ -19,11 +17,7 @@ export const Header = () => {
             </div>
           </Link>
         </div>
-        <div className="flex items-center">
-          <Button variant="ghost" asChild className="text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground">
-            <Link href="/skills"> <UserCircle className="mr-1 h-4 w-4" /> Skills</Link>
-          </Button>
-        </div>
+        {/* Skills button removed from here */}
       </nav>
     </header>
   );
