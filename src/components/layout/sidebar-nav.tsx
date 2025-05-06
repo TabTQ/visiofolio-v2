@@ -9,6 +9,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarTrigger, // Import SidebarTrigger
 } from '@/components/ui/sidebar';
 import { usePathname } from 'next/navigation';
 import type { FC } from 'react';
@@ -46,8 +47,8 @@ export const SidebarNav: FC = () => {
 
   return (
     <>
-      <SidebarHeader className="p-4 border-b border-sidebar-border h-[60px]">
-        {/* Name removed from here */}
+      <SidebarHeader className="p-2 border-b border-sidebar-border h-[60px] flex items-center">
+        <SidebarTrigger className="text-sidebar-foreground hover:bg-sidebar-accent data-[state=open]:bg-sidebar-accent [&_svg]:text-sidebar-foreground" />
       </SidebarHeader>
       <SidebarContent className="p-2">
         <SidebarMenu>

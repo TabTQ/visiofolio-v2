@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import portfolioData from '@/config/portfolio-data.json';
-import { SidebarTrigger } from '@/components/ui/sidebar';
+// import { SidebarTrigger } from '@/components/ui/sidebar'; // Removed SidebarTrigger
 import { Github, Linkedin, Mail, Phone } from 'lucide-react'; // Import icons
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
@@ -15,7 +15,7 @@ export const Header = () => {
     <header className="bg-primary text-primary-foreground shadow-md sticky top-0 z-50">
       <nav className="container mx-auto px-4 py-6 flex justify-between items-center"> {/* Changed py-3 to py-6 */}
         <div className="flex items-center gap-3">
-          <SidebarTrigger className="text-primary-foreground hover:bg-primary/80 data-[state=open]:bg-primary/80 [&_svg]:text-primary-foreground" />
+          {/* <SidebarTrigger className="text-primary-foreground hover:bg-primary/80 data-[state=open]:bg-primary/80 [&_svg]:text-primary-foreground" /> */} {/* SidebarTrigger removed */}
           <Link href="/" passHref>
             <div className="flex flex-col items-start cursor-pointer hover:opacity-80 transition-opacity">
               <span className="text-2xl font-bold">{name}</span>
