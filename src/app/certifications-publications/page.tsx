@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { GraduationCap, BookOpen, ExternalLink } from 'lucide-react'; // Removed Award, FileText
+import { Award, FileText, ExternalLink } from 'lucide-react';
 import { format, parse, isValid } from 'date-fns';
 import portfolioData from '@/config/portfolio-data.json';
 
@@ -46,19 +46,19 @@ const processAndSortAcademics = (data: AcademicItemConfig[]): AcademicItem[] => 
 
 const sortedAcademics: AcademicItem[] = processAndSortAcademics(academicsData);
 
-const degreesAndCourses = sortedAcademics.filter(item =>
-    item.type.toLowerCase() === 'degree' || item.type.toLowerCase() === 'coursework'
+const certsAndPubs = sortedAcademics.filter(item =>
+    item.type.toLowerCase() === 'certification' || item.type.toLowerCase() === 'publication'
 );
 
 const AcademicIcon: FC<{ type: string }> = ({ type }) => {
   const lowerCaseType = type.toLowerCase();
   switch (lowerCaseType) {
-    case 'degree':
-      return <GraduationCap className="mr-2 h-5 w-5 text-accent flex-shrink-0" />;
-    case 'coursework':
-      return <BookOpen className="mr-2 h-5 w-5 text-accent flex-shrink-0" />;
+    case 'certification':
+      return <Award className="mr-2 h-5 w-5 text-accent flex-shrink-0" />;
+     case 'publication':
+       return <FileText className="mr-2 h-5 w-5 text-accent flex-shrink-0" />;
     default:
-      return <GraduationCap className="mr-2 h-5 w-5 text-muted-foreground flex-shrink-0" />;
+      return <Award className="mr-2 h-5 w-5 text-muted-foreground flex-shrink-0" />;
   }
 };
 
@@ -91,22 +91,21 @@ const RenderAcademicItem: FC<{ item: AcademicItem }> = ({ item }) => (
     </Card>
 );
 
-const AcademicsPage: FC = () => {
+const CertificationsPublicationsPage: FC = () => {
   return (
     <div className="container mx-auto px-4 py-8 animate-fade-in">
-      <h1 className="text-4xl font-bold mb-12 text-primary text-center">Academics</h1>
+      <h1 className="text-4xl font-bold mb-12 text-primary text-center">Certifications & Publications</h1>
       
-      {/* Academic Degrees & Coursework Section */}
       <div>
-          <h2 className="text-2xl font-semibold mb-6 text-primary border-b pb-2">Academic Degrees & Coursework</h2>
-           {degreesAndCourses.length > 0 ? (
-              degreesAndCourses.map((item) => <RenderAcademicItem key={item.id} item={item} />)
+          <h2 className="text-2xl font-semibold mb-6 text-primary border-b pb-2">My Certifications & Publications</h2>
+           {certsAndPubs.length > 0 ? (
+              certsAndPubs.map((item) => <RenderAcademicItem key={item.id} item={item} />)
            ) : (
-               <p className="text-muted-foreground">No academic degrees or coursework listed.</p>
+               <p className="text-muted-foreground">No certifications or publications listed.</p>
            )}
       </div>
     </div>
   );
 };
 
-export default AcademicsPage;
+export default CertificationsPublicationsPage;

@@ -2,14 +2,13 @@
 'use client';
 
 import Link from 'next/link';
-import { Home, Briefcase, GraduationCap, Code, UserCircle, PanelLeft } from 'lucide-react'; // Added PanelLeft
+import { Home, Briefcase, GraduationCap, Code, UserCircle, PanelLeft, Award } from 'lucide-react'; // Added Award
 import {
   SidebarHeader,
   SidebarContent,
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  // SidebarTrigger, // Removed SidebarTrigger as we are replacing its functionality here
 } from '@/components/ui/sidebar';
 import { usePathname } from 'next/navigation';
 import type { FC } from 'react';
@@ -26,6 +25,7 @@ const navItems: NavItem[] = [
   { href: '/projects', label: 'Projects', icon: Code },
   { href: '/experience', label: 'Experience', icon: Briefcase },
   { href: '/academics', label: 'Academics', icon: GraduationCap },
+  { href: '/certifications-publications', label: 'Certifications & Publications', icon: Award },
   { href: '/skills', label: 'Skills', icon: UserCircle },
 ];
 
@@ -38,18 +38,18 @@ export const SidebarNav: FC = () => {
       setOpenMobile(false);
     } else {
       if (open) {
-        setOpen(false);
+        // Keep sidebar open on desktop, or uncomment to close
+        // setOpen(false); 
       }
     }
   };
 
   return (
     <>
-      {/* Modified SidebarHeader to contain a SidebarMenuButton for toggling */}
       <SidebarHeader className="border-b border-sidebar-border h-[60px] flex items-center p-2">
         <SidebarMenuButton
             onClick={toggleSidebar}
-            className="justify-start w-full" // Ensure it spans full width and aligns left
+            className="justify-start w-full"
             tooltip={{ children: open ? "Collapse" : "Expand", side: 'right', align: 'center' }}
         >
             <PanelLeft />
@@ -76,13 +76,6 @@ export const SidebarNav: FC = () => {
           ))}
         </SidebarMenu>
       </SidebarContent>
-      {/* Example of SidebarFooter if needed in the future
-      <SidebarSeparator />
-      <SidebarFooter className="p-2">
-        <p className="text-xs text-sidebar-foreground/70">&copy; {new Date().getFullYear()}</p>
-      </SidebarFooter>
-      */}
     </>
   );
 };
-
