@@ -1,13 +1,17 @@
+
 "use client"
 
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { VariantProps, cva } from "class-variance-authority"
-import { PanelLeft } from "lucide-react"
+// PanelLeft import removed as it's no longer used directly here for SidebarTrigger
+// import { PanelLeft } from "lucide-react"
+
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+// Button import removed as it's no longer used for SidebarTrigger
+// import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetContent } from "@/components/ui/sheet"
@@ -234,7 +238,7 @@ const Sidebar = React.forwardRef<
         />
         <div
           className={cn(
-            "duration-200 fixed inset-y-0 z-10 hidden h-svh w-[--sidebar-width] transition-[left,right,width] ease-linear md:flex",
+            "duration-200 fixed inset-y-0 z-50 hidden h-svh w-[--sidebar-width] transition-[left,right,width] ease-linear md:flex", // Increased z-index to 50
             side === "left"
               ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
               : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
@@ -259,31 +263,32 @@ const Sidebar = React.forwardRef<
 )
 Sidebar.displayName = "Sidebar"
 
-const SidebarTrigger = React.forwardRef<
-  React.ElementRef<typeof Button>,
-  React.ComponentProps<typeof Button>
->(({ className, onClick, ...props }, ref) => {
-  const { toggleSidebar } = useSidebar()
+// SidebarTrigger component removed as its functionality is now part of SidebarNav
+// const SidebarTrigger = React.forwardRef<
+//   React.ElementRef<typeof Button>,
+//   React.ComponentProps<typeof Button>
+// >(({ className, onClick, ...props }, ref) => {
+//   const { toggleSidebar } = useSidebar()
 
-  return (
-    <Button
-      ref={ref}
-      data-sidebar="trigger"
-      variant="ghost"
-      size="icon"
-      className={cn("h-7 w-7", className)}
-      onClick={(event) => {
-        onClick?.(event)
-        toggleSidebar()
-      }}
-      {...props}
-    >
-      <PanelLeft />
-      <span className="sr-only">Toggle Sidebar</span>
-    </Button>
-  )
-})
-SidebarTrigger.displayName = "SidebarTrigger"
+//   return (
+//     <Button
+//       ref={ref}
+//       data-sidebar="trigger"
+//       variant="ghost"
+//       size="icon"
+//       className={cn("h-7 w-7", className)}
+//       onClick={(event) => {
+//         onClick?.(event)
+//         toggleSidebar()
+//       }}
+//       {...props}
+//     >
+//       <PanelLeft />
+//       <span className="sr-only">Toggle Sidebar</span>
+//     </Button>
+//   )
+// })
+// SidebarTrigger.displayName = "SidebarTrigger"
 
 const SidebarRail = React.forwardRef<
   HTMLButtonElement,
@@ -758,6 +763,7 @@ export {
   SidebarProvider,
   SidebarRail,
   SidebarSeparator,
-  SidebarTrigger,
+  // SidebarTrigger, // SidebarTrigger removed from exports
   useSidebar,
 }
+

@@ -2,18 +2,18 @@
 'use client';
 
 import Link from 'next/link';
-import { Home, Briefcase, GraduationCap, Code, UserCircle } from 'lucide-react'; // Added UserCircle
+import { Home, Briefcase, GraduationCap, Code, UserCircle, PanelLeft } from 'lucide-react'; // Added PanelLeft
 import {
   SidebarHeader,
   SidebarContent,
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarTrigger, // Import SidebarTrigger
+  // SidebarTrigger, // Removed SidebarTrigger as we are replacing its functionality here
 } from '@/components/ui/sidebar';
 import { usePathname } from 'next/navigation';
 import type { FC } from 'react';
-import { useSidebar } from '@/components/ui/sidebar'; // Import useSidebar
+import { useSidebar } from '@/components/ui/sidebar';
 
 interface NavItem {
   href: string;
@@ -26,20 +26,18 @@ const navItems: NavItem[] = [
   { href: '/projects', label: 'Projects', icon: Code },
   { href: '/experience', label: 'Experience', icon: Briefcase },
   { href: '/academics', label: 'Academics', icon: GraduationCap },
-  { href: '/skills', label: 'Skills', icon: UserCircle }, // Added Skills link
+  { href: '/skills', label: 'Skills', icon: UserCircle },
 ];
 
 export const SidebarNav: FC = () => {
   const pathname = usePathname();
-  const { isMobile, setOpenMobile, open, setOpen } = useSidebar(); // Get sidebar context
+  const { isMobile, setOpenMobile, open, setOpen, toggleSidebar } = useSidebar();
 
   const handleNavItemClick = () => {
     if (isMobile) {
-      setOpenMobile(false); // Close mobile sheet
+      setOpenMobile(false);
     } else {
-      // For desktop, if sidebar is collapsible (icon mode) and currently expanded, collapse it
-      // This assumes the main sidebar in layout.tsx uses collapsible="icon"
-      if (open) { // 'open' here refers to the expanded state of the desktop sidebar
+      if (open) {
         setOpen(false);
       }
     }
@@ -47,8 +45,16 @@ export const SidebarNav: FC = () => {
 
   return (
     <>
-      <SidebarHeader className="p-2 border-b border-sidebar-border h-[60px] flex items-center">
-        <SidebarTrigger className="text-sidebar-foreground hover:bg-sidebar-accent data-[state=open]:bg-sidebar-accent [&_svg]:text-sidebar-foreground" />
+      {/* Modified SidebarHeader to contain a SidebarMenuButton for toggling */}
+      <SidebarHeader className="border-b border-sidebar-border h-[60px] flex items-center p-2">
+        <SidebarMenuButton
+            onClick={toggleSidebar}
+            className="justify-start w-full" // Ensure it spans full width and aligns left
+            tooltip={{ children: open ? "Collapse" : "Expand", side: 'right', align: 'center' }}
+        >
+            <PanelLeft />
+            <span>{open ? "Collapse" : "Expand"}</span>
+        </SidebarMenuButton>
       </SidebarHeader>
       <SidebarContent className="p-2">
         <SidebarMenu>
@@ -59,7 +65,7 @@ export const SidebarNav: FC = () => {
                 isActive={pathname === item.href}
                 className="justify-start"
                 tooltip={{ children: item.label, side: 'right', align: 'center' }}
-                onClick={handleNavItemClick} // Add onClick handler here
+                onClick={handleNavItemClick}
               >
                 <Link href={item.href}>
                   <item.icon />
