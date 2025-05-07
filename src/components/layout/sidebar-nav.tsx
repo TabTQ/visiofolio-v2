@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Home, Briefcase, GraduationCap, Code, UserCircle, PanelLeft, Award } from 'lucide-react'; // Added Award
+import { Home, Briefcase, GraduationCap, Code, UserCircle, PanelLeft, Award } from 'lucide-react'; // Award icon is suitable for Certifications
 import {
   SidebarHeader,
   SidebarContent,
@@ -24,8 +24,8 @@ const navItems: NavItem[] = [
   { href: '/', label: 'Home', icon: Home },
   { href: '/projects', label: 'Projects', icon: Code },
   { href: '/experience', label: 'Experience', icon: Briefcase },
-  { href: '/academics', label: 'Academics', icon: GraduationCap },
-  { href: '/certifications-publications', label: 'Certifications & Publications', icon: Award },
+  { href: '/academics', label: 'Academics & Publications', icon: GraduationCap }, // Updated label
+  { href: '/certifications', label: 'Certifications', icon: Award }, // Updated href and label
   { href: '/skills', label: 'Skills', icon: UserCircle },
 ];
 
