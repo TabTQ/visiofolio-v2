@@ -1,17 +1,41 @@
 
 'use client'
 
-import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Menu } from 'lucide-react';
-import portfolioData from '@/config/portfolio-data.json';
-import { useSidebar } from '@/components/ui/sidebar'; // Import useSidebar
+import { useSidebar } from '@/components/ui/sidebar'; 
+import type { PortfolioData } from '@/types/portfolio-data';
 
 export default function Home() {
-  const { setOpen, setOpenMobile, isMobile } = useSidebar(); // Get sidebar control functions
+  const [portfolioData, setPortfolioData] = useState<PortfolioData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const { setOpen, setOpenMobile, isMobile } = useSidebar(); 
 
-  const { name, bio } = portfolioData.personalInfo; // Removed profilePicture and profilePictureHint
+  useEffect(() => {
+    const fetchPortfolioData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/portfolio-data');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch: ${response.status}`);
+        }
+        const data: PortfolioData = await response.json();
+        setPortfolioData(data);
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching portfolio data:", err);
+        setError(err instanceof Error ? err.message : String(err));
+        setPortfolioData(null); 
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPortfolioData();
+  }, []);
 
   const openSidebar = () => {
     if (isMobile) {
@@ -21,13 +45,26 @@ export default function Home() {
     }
   };
 
+  if (loading) {
+    return <div className="flex flex-col items-center justify-center min-h-[calc(100vh-10rem)] py-12">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="flex flex-col items-center justify-center min-h-[calc(100vh-10rem)] py-12 text-destructive">Error: {error}</div>;
+  }
+
+  if (!portfolioData || !portfolioData.personalInfo) {
+    return <div className="flex flex-col items-center justify-center min-h-[calc(100vh-10rem)] py-12">Portfolio data not available.</div>;
+  }
+
+  const { name, bio } = portfolioData.personalInfo;
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-10rem)] animate-fade-in py-12">
 
       {/* Profile Section */}
       <div className="flex flex-col items-center gap-8 md:gap-12 mb-12 w-full max-w-4xl">
         {/* Left Side: Description */}
-        {/* Changed className from "flex-1" to "w-full max-w-2xl" to match explore card width */}
         <div className="w-full max-w-2xl">
           <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 text-center md:text-left">
             Hi, I&apos;m {name}
@@ -39,8 +76,6 @@ export default function Home() {
             </p>
           </div>
         </div>
-
-        {/* Right Side: Profile Picture - REMOVED FROM HERE */}
       </div>
 
       {/* Navigation Links Card */}
@@ -68,4 +103,3 @@ export default function Home() {
     </div>
   );
 }
-

@@ -2,6 +2,7 @@
 'use client';
 
 import type { FC } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Accordion,
   AccordionContent,
@@ -9,23 +10,49 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Briefcase, Calendar } from 'lucide-react';
-import portfolioData from '@/config/portfolio-data.json'; // Import config data
+import type { ExperienceItem, PortfolioData } from '@/types/portfolio-data';
 
-// Define experience item structure (can potentially be moved to a types file)
-interface ExperienceItem {
-  id: string;
-  title: string;
-  company: string;
-  duration: string;
-  location: string;
-  responsibilities: string[];
-  achievements?: string[];
-}
-
-// Fetch experience data from the JSON file
-const experiences: ExperienceItem[] = portfolioData.experiences;
 
 const ExperiencePage: FC = () => {
+  const [experiences, setExperiences] = useState<ExperienceItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPortfolioData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/portfolio-data');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch: ${response.status}`);
+        }
+        const data: PortfolioData = await response.json();
+        setExperiences(data.experiences || []);
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching experience data:", err);
+        setError(err instanceof Error ? err.message : String(err));
+        setExperiences([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPortfolioData();
+  }, []);
+
+  if (loading) {
+    return <div className="container mx-auto px-4 py-8 text-center">Loading experience data...</div>;
+  }
+
+  if (error) {
+    return <div className="container mx-auto px-4 py-8 text-center text-destructive">Error loading experience data: {error}</div>;
+  }
+
+  if (!experiences || experiences.length === 0) {
+    return <div className="container mx-auto px-4 py-8 text-center text-muted-foreground">No professional experience listed yet.</div>;
+  }
+
   return (
     <div className="container mx-auto px-4 py-8 animate-fade-in">
       <h1 className="text-4xl font-bold mb-12 text-primary text-center">Professional Experience</h1>
@@ -79,4 +106,3 @@ const ExperiencePage: FC = () => {
 };
 
 export default ExperiencePage;
-

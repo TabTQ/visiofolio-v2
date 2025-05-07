@@ -1,6 +1,8 @@
+
 'use client';
 
 import type { FC } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Accordion,
   AccordionContent,
@@ -10,26 +12,51 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import { Code, Eye, ChevronDown } from 'lucide-react';
-import portfolioData from '@/config/portfolio-data.json'; // Import config data
+import { Code, Eye } from 'lucide-react';
+import type { Project, PortfolioData } from '@/types/portfolio-data';
 
-// Define project data structure (can potentially be moved to a types file)
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-  imageHint: string;
-  tags: string[];
-  liveUrl?: string;
-  repoUrl?: string;
-  type: string;
-}
-
-// Fetch project data from the JSON file
-const projects: Project[] = portfolioData.projects;
 
 const ProjectsPage: FC = () => {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPortfolioData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/portfolio-data');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch: ${response.status}`);
+        }
+        const data: PortfolioData = await response.json();
+        setProjects(data.projects || []);
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching projects data:", err);
+        setError(err instanceof Error ? err.message : String(err));
+        setProjects([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPortfolioData();
+  }, []);
+
+
+  if (loading) {
+    return <div className="container mx-auto px-4 py-8 text-center">Loading projects...</div>;
+  }
+
+  if (error) {
+    return <div className="container mx-auto px-4 py-8 text-center text-destructive">Error loading projects: {error}</div>;
+  }
+
+  if (!projects || projects.length === 0) {
+    return <div className="container mx-auto px-4 py-8 text-center text-muted-foreground">No projects listed yet.</div>;
+  }
+
   return (
     <div className="container mx-auto px-4 py-8 animate-fade-in">
       <h1 className="text-4xl font-bold mb-12 text-primary text-center">My Projects</h1>
@@ -46,7 +73,7 @@ const ProjectsPage: FC = () => {
                       <p className="text-sm text-muted-foreground mt-1">{project.type}</p>
                     </div>
                     <div className="flex flex-wrap gap-2 sm:ml-4">
-                      {project.tags.slice(0, 3).map((tag) => ( // Show limited tags in trigger
+                      {project.tags.slice(0, 3).map((tag) => ( 
                         <Badge key={tag} variant="secondary" className="bg-secondary text-secondary-foreground">{tag}</Badge>
                       ))}
                       {project.tags.length > 3 && (
@@ -54,7 +81,6 @@ const ProjectsPage: FC = () => {
                       )}
                     </div>
                   </div>
-                  {/* ChevronDown is part of AccordionTrigger by default, but can be customized if needed */}
                 </AccordionTrigger>
                 <AccordionContent className="p-6 pt-0">
                   <div className="relative h-56 w-full mb-4 rounded-md overflow-hidden">
@@ -64,7 +90,7 @@ const ProjectsPage: FC = () => {
                       layout="fill"
                       objectFit="cover"
                       data-ai-hint={project.imageHint}
-                      className="bg-muted" // Background while loading
+                      className="bg-muted" 
                     />
                   </div>
                   <p className="text-foreground mb-4">{project.description}</p>

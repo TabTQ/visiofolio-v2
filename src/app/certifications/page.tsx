@@ -1,26 +1,21 @@
 
+'use client';
+
 import type { FC } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Award, ExternalLink, ChevronDown } from 'lucide-react';
+import { Award, ExternalLink } from 'lucide-react';
 import { parse, isValid } from 'date-fns';
-import portfolioData from '@/config/portfolio-data.json';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import type { AcademicItemConfig, PortfolioData } from '@/types/portfolio-data';
 
-interface AcademicItemConfig {
-  id: string;
-  type: string;
-  title: string;
-  institution: string;
-  date: string;
-  description?: string;
-  url?: string;
-}
 
+// AcademicItem extends AcademicItemConfig by adding a parsed endDate
 interface AcademicItem extends AcademicItemConfig {
     endDate: Date;
 }
@@ -39,8 +34,6 @@ const parseDateString = (dateStr: string): Date => {
     return new Date(0);
 };
 
-const academicsData: AcademicItemConfig[] = portfolioData.academics;
-
 const processAndSortAcademics = (data: AcademicItemConfig[]): AcademicItem[] => {
   return data
     .map(item => ({
@@ -49,12 +42,6 @@ const processAndSortAcademics = (data: AcademicItemConfig[]): AcademicItem[] => 
     }))
     .sort((a, b) => b.endDate.getTime() - a.endDate.getTime());
 };
-
-const sortedAcademics: AcademicItem[] = processAndSortAcademics(academicsData);
-
-const certifications = sortedAcademics.filter(item =>
-    item.type.toLowerCase() === 'certification'
-);
 
 const AcademicIcon: FC<{ type: string }> = ({ type }) => {
   const lowerCaseType = type.toLowerCase();
@@ -102,6 +89,52 @@ const RenderAcademicItem: FC<{ item: AcademicItem }> = ({ item }) => (
 );
 
 const CertificationsPage: FC = () => {
+  const [academicsData, setAcademicsData] = useState<AcademicItemConfig[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPortfolioData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/portfolio-data');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch: ${response.status}`);
+        }
+        const data: PortfolioData = await response.json();
+        setAcademicsData(data.academics || []); // Assuming certifications are part of academics array
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching certifications data:", err);
+        setError(err instanceof Error ? err.message : String(err));
+        setAcademicsData([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPortfolioData();
+  }, []);
+
+
+  if (loading) {
+    return <div className="container mx-auto px-4 py-8 text-center">Loading certifications...</div>;
+  }
+
+  if (error) {
+    return <div className="container mx-auto px-4 py-8 text-center text-destructive">Error loading certifications: {error}</div>;
+  }
+  
+  if (!academicsData) { // Check if academicsData is null (initial state or error)
+    return <div className="container mx-auto px-4 py-8 text-center text-muted-foreground">No certification data available.</div>;
+  }
+
+  const sortedAcademics: AcademicItem[] = processAndSortAcademics(academicsData);
+  const certifications = sortedAcademics.filter(item =>
+      item.type.toLowerCase() === 'certification'
+  );
+
+
   return (
     <div className="container mx-auto px-4 py-8 animate-fade-in">
       <h1 className="text-4xl font-bold mb-12 text-primary text-center">Certifications</h1>

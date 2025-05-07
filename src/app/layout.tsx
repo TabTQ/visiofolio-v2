@@ -1,23 +1,45 @@
+
 import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from "@/components/ui/toaster";
-import portfolioData from '@/config/portfolio-data.json'; // Import config data
 import { SidebarProvider, Sidebar, SidebarInset } from '@/components/ui/sidebar';
 import { SidebarNav } from '@/components/layout/sidebar-nav';
+import path from 'path';
+import fs from 'fs/promises';
+import type { PortfolioData } from '@/types/portfolio-data';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
 });
 
-// Generate metadata dynamically using the name from the config
+const portfolioDataPath = path.join(process.cwd(), 'src', 'config', 'portfolio-data.json');
+
+async function getPortfolioDataForMetadata(): Promise<PortfolioData> {
+  try {
+    const jsonData = await fs.readFile(portfolioDataPath, 'utf-8');
+    return JSON.parse(jsonData);
+  } catch (error) {
+    console.error("Failed to read portfolio data for metadata:", error);
+    // Fallback to prevent build/runtime errors if file is missing or corrupt
+    return {
+      personalInfo: { name: "Portfolio", bio: "", socialLinks: {} },
+      projects: [],
+      experiences: [],
+      academics: [],
+      skills: [],
+    };
+  }
+}
+
 export async function generateMetadata(): Promise<Metadata> {
+  const portfolioData = await getPortfolioDataForMetadata();
   return {
-    title: `${portfolioData.personalInfo.name}'s VisioFolio`, // Use name from config
-    description: 'A modern portfolio website showcasing skills and projects', // Keep description generic or enhance later
+    title: `${portfolioData.personalInfo.name}'s VisioFolio`,
+    description: 'A modern portfolio website showcasing skills and projects',
   };
 }
 

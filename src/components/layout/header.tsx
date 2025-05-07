@@ -1,21 +1,77 @@
 
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import portfolioData from '@/config/portfolio-data.json';
-// import { SidebarTrigger } from '@/components/ui/sidebar'; // Removed SidebarTrigger
-import { Github, Linkedin, Mail, Phone } from 'lucide-react'; // Import icons
+import { Github, Linkedin, Mail, Phone } from 'lucide-react'; 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import type { PersonalInfo, PortfolioData } from '@/types/portfolio-data';
 
 export const Header = () => {
-  const { name, mobile, email, profilePicture, profilePictureHint } = portfolioData.personalInfo;
-  const { github, linkedin } = portfolioData.personalInfo.socialLinks;
+  const [personalInfo, setPersonalInfo] = useState<PersonalInfo | null>(null);
+  const [loading, setLoading] = useState(true);
+  // Not explicitly handling error display in header for brevity, but can be added
+
+  useEffect(() => {
+    const fetchPortfolioData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/portfolio-data');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch: ${response.status}`);
+        }
+        const data: PortfolioData = await response.json();
+        setPersonalInfo(data.personalInfo || null);
+      } catch (err) {
+        console.error("Error fetching personal info for header:", err);
+        setPersonalInfo(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPortfolioData();
+  }, []);
+
+  if (loading) {
+    return (
+      <header className="bg-primary text-primary-foreground shadow-md sticky top-0 z-50">
+        <nav className="container mx-auto px-4 py-6 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl font-bold">Loading...</span>
+          </div>
+          <div className="flex items-center space-x-3">
+            {/* Placeholder for icons while loading */}
+          </div>
+        </nav>
+      </header>
+    );
+  }
+  
+  if (!personalInfo) {
+     return (
+      <header className="bg-primary text-primary-foreground shadow-md sticky top-0 z-50">
+        <nav className="container mx-auto px-4 py-6 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <Link href="/" passHref>
+              <div className="flex flex-col items-start cursor-pointer hover:opacity-80 transition-opacity">
+                <span className="text-2xl font-bold">Portfolio</span>
+              </div>
+            </Link>
+          </div>
+        </nav>
+      </header>
+    );
+  }
+
+  const { name, mobile, email, profilePicture, profilePictureHint, socialLinks } = personalInfo;
+  const { github, linkedin } = socialLinks || {};
 
 
   return (
     <header className="bg-primary text-primary-foreground shadow-md sticky top-0 z-50">
-      <nav className="container mx-auto px-4 py-6 flex justify-between items-center"> {/* Changed py-3 to py-6 */}
+      <nav className="container mx-auto px-4 py-6 flex justify-between items-center">
         <div className="flex items-center gap-3">
-          {/* <SidebarTrigger className="text-primary-foreground hover:bg-primary/80 data-[state=open]:bg-primary/80 [&_svg]:text-primary-foreground" /> */} {/* SidebarTrigger removed */}
           <Link href="/" passHref>
             <div className="flex flex-col items-start cursor-pointer hover:opacity-80 transition-opacity">
               <span className="text-2xl font-bold">{name}</span>
@@ -37,7 +93,7 @@ export const Header = () => {
               aria-label="GitHub"
               className="hover:text-accent transition-colors"
             >
-              <Github className="h-5 w-5" /> {/* Adjusted icon size for header */}
+              <Github className="h-5 w-5" />
             </a>
           )}
           {linkedin && (
@@ -48,7 +104,7 @@ export const Header = () => {
               aria-label="LinkedIn"
               className="hover:text-accent transition-colors"
             >
-              <Linkedin className="h-5 w-5" /> {/* Adjusted icon size for header */}
+              <Linkedin className="h-5 w-5" />
             </a>
           )}
           {email && (
@@ -57,13 +113,13 @@ export const Header = () => {
               aria-label="Email"
               className="hover:text-accent transition-colors"
             >
-              <Mail className="h-5 w-5" /> {/* Adjusted icon size for header */}
+              <Mail className="h-5 w-5" />
             </a>
           )}
           {profilePicture && (
-            <Avatar className="h-16 w-16 ml-2 border-2 border-primary-foreground/50"> {/* Increased size */}
+            <Avatar className="h-16 w-16 ml-2 border-2 border-primary-foreground/50">
               <AvatarImage src={profilePicture} alt={name} data-ai-hint={profilePictureHint} />
-              <AvatarFallback>{name.substring(0, 1)}</AvatarFallback>
+              <AvatarFallback>{name ? name.substring(0, 1) : 'P'}</AvatarFallback>
             </Avatar>
           )}
         </div>
@@ -71,4 +127,3 @@ export const Header = () => {
     </header>
   );
 };
-

@@ -1,57 +1,48 @@
+
+'use client';
+
 import type { FC } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress'; // Import Progress
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"; // Import Tooltip components
+import { Progress } from '@/components/ui/progress'; 
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"; 
 import { BrainCircuit, Wrench, Users } from 'lucide-react';
-import portfolioData from '@/config/portfolio-data.json'; // Import config data
-import { cn } from "@/lib/utils"; // Import cn for conditional classes
+import { cn } from "@/lib/utils"; 
+import type { Skill, PortfolioData } from '@/types/portfolio-data';
 
-// Define skill structure
-interface Skill {
-  id: string;
-  name: string;
-  level: number; // Proficiency level (0-100)
-  category: string;
-}
-
-// Thresholds for skill levels
 const thresholds = { basic: 33, intermediate: 66, proficient: 100 };
 
-// Updated component for single-color skill level bar using Progress based on category
 const SkillLevelBar: FC<{ level: number }> = ({ level }) => {
-  let progressBarClass = 'bg-muted'; // Default for 0 or invalid
+  let progressBarClass = 'bg-muted'; 
   let progressValue = 0;
   let title = 'Unknown';
 
   if (level > 0 && level <= thresholds.basic) {
-    progressBarClass = 'bg-warning'; // Yellow for Basic
-    progressValue = thresholds.basic; // Represent Basic as 33% filled
+    progressBarClass = 'bg-warning'; 
+    progressValue = thresholds.basic; 
     title = 'Basic';
   } else if (level > thresholds.basic && level <= thresholds.intermediate) {
-    progressBarClass = 'bg-accent'; // Orange for Intermediate
-    progressValue = thresholds.intermediate; // Represent Intermediate as 66% filled
+    progressBarClass = 'bg-accent'; 
+    progressValue = thresholds.intermediate; 
     title = 'Intermediate';
   } else if (level > thresholds.intermediate) {
-    progressBarClass = 'bg-success'; // Green for Proficient
-    progressValue = thresholds.proficient; // Represent Proficient as 100% filled
+    progressBarClass = 'bg-success'; 
+    progressValue = thresholds.proficient; 
     title = 'Proficient';
   }
 
-  // Handle level 0 explicitly if needed, otherwise it uses the default 'muted'
   if (level === 0) {
     title = 'No Proficiency';
   }
-
 
   return (
     <TooltipProvider delayDuration={100}>
       <Tooltip>
         <TooltipTrigger asChild>
-          {/* Ensure Progress component itself has a defined height, default is h-4, use h-3 if desired */}
           <Progress
-            value={progressValue} // Use categorical value
-            className="h-3 w-full mt-1 cursor-default" // Added cursor-default
-            indicatorClassName={cn("transition-colors duration-500", progressBarClass)} // Apply color class to indicator
+            value={progressValue} 
+            className="h-3 w-full mt-1 cursor-default" 
+            indicatorClassName={cn("transition-colors duration-500", progressBarClass)} 
           />
         </TooltipTrigger>
         <TooltipContent side="top">
@@ -62,24 +53,6 @@ const SkillLevelBar: FC<{ level: number }> = ({ level }) => {
   );
 };
 
-// Fetch skills data from the JSON file
-const skills: Skill[] = portfolioData.skills;
-
-const SkillCategoryIcon: FC<{ category: string }> = ({ category }) => {
-  const lowerCaseCategory = category.toLowerCase();
-  switch (lowerCaseCategory) {
-    case 'technical':
-      return <BrainCircuit className="mr-2 h-5 w-5 text-primary" />;
-    case 'tools':
-      return <Wrench className="mr-2 h-5 w-5 text-primary" />;
-    case 'soft skills':
-       return <Users className="mr-2 h-5 w-5 text-primary" />;
-    default:
-      return <BrainCircuit className="mr-2 h-5 w-5 text-muted-foreground" />;
-  }
-};
-
-// Updated Legend component to explain the single bar color categories
 const Legend = () => (
   <div className="mb-8 flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
     <span className="font-medium mr-2">Proficiency Level:</span>
@@ -100,15 +73,52 @@ const Legend = () => (
 
 
 const SkillsPage: FC = () => {
-  // Filter skills based on category string from JSON
+  const [skills, setSkills] = useState<Skill[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPortfolioData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/portfolio-data');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch: ${response.status}`);
+        }
+        const data: PortfolioData = await response.json();
+        setSkills(data.skills || []);
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching skills data:", err);
+        setError(err instanceof Error ? err.message : String(err));
+        setSkills([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPortfolioData();
+  }, []);
+
+  if (loading) {
+    return <div className="container mx-auto px-4 py-8 text-center">Loading skills...</div>;
+  }
+
+  if (error) {
+    return <div className="container mx-auto px-4 py-8 text-center text-destructive">Error loading skills: {error}</div>;
+  }
+
+  if (!skills || skills.length === 0) {
+    return <div className="container mx-auto px-4 py-8 text-center text-muted-foreground">No skills listed yet.</div>;
+  }
+
   const technicalSkills = skills.filter((s) => s.category.toLowerCase() === 'technical');
   const toolSkills = skills.filter((s) => s.category.toLowerCase() === 'tools');
   const softSkills = skills.filter((s) => s.category.toLowerCase() === 'soft skills');
 
   const renderSkillCategory = (title: string, categorySkills: Skill[], icon: React.ReactNode) => {
-      if (categorySkills.length === 0) return null; // Don't render empty categories
+      if (categorySkills.length === 0) return null; 
 
-     // Sort skills within the category alphabetically by name for consistent display
      const sortedSkills = [...categorySkills].sort((a, b) => a.name.localeCompare(b.name));
 
      return (
