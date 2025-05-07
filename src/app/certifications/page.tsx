@@ -1,10 +1,15 @@
 
 import type { FC } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Award, ExternalLink } from 'lucide-react'; // Removed FileText
-import { format, parse, isValid } from 'date-fns';
+import { Award, ExternalLink, ChevronDown } from 'lucide-react';
+import { parse, isValid } from 'date-fns';
 import portfolioData from '@/config/portfolio-data.json';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface AcademicItemConfig {
   id: string;
@@ -62,32 +67,38 @@ const AcademicIcon: FC<{ type: string }> = ({ type }) => {
 };
 
 const RenderAcademicItem: FC<{ item: AcademicItem }> = ({ item }) => (
-    <Card key={item.id} className="shadow-lg bg-card transition-shadow duration-300 hover:shadow-xl flex flex-col mb-6">
-        <CardHeader>
-        <CardTitle className="text-xl font-semibold text-primary flex items-start">
-            <AcademicIcon type={item.type} />
-            <span className="flex-1">{item.title}</span>
-        </CardTitle>
-        <CardDescription className="text-muted-foreground pt-1 pl-7">{item.institution} - {item.date}</CardDescription>
-        </CardHeader>
-        {item.description && (
-            <CardContent className="flex-grow pl-7">
-            <p className="text-foreground">{item.description}</p>
-            </CardContent>
-        )}
-        {item.url && (
-            <CardFooter className="pl-7 pt-2 mt-auto justify-start">
-                <Button variant="outline" size="sm" asChild>
-                <a href={item.url} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="mr-1 h-4 w-4" />
-                    View Details / Link
-                </a>
-                </Button>
-            </CardFooter>
-        )}
-         {item.description && !item.url && <div className="pb-6"></div>}
-        {!item.description && !item.url && <div className="pb-6"></div>}
-    </Card>
+    <AccordionItem value={item.id} key={item.id} className="border-b bg-card shadow-lg rounded-lg transition-shadow duration-300 hover:shadow-xl">
+        <AccordionTrigger className="p-6 text-left hover:no-underline focus:no-underline">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center w-full">
+                <div className="flex-grow mb-2 sm:mb-0">
+                    <h2 className="text-xl font-semibold text-primary flex items-start">
+                        <AcademicIcon type={item.type} />
+                        <span className="flex-1">{item.title}</span>
+                    </h2>
+                    <p className="text-sm text-muted-foreground mt-1 pl-7">{item.institution} - {item.date}</p>
+                </div>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent className="p-6 pt-0">
+            <div className="pl-7">
+                {item.description && (
+                    <p className="text-foreground mb-4">{item.description}</p>
+                )}
+                {item.url && (
+                    <div className="flex justify-start mt-4">
+                        <Button variant="outline" size="sm" asChild>
+                        <a href={item.url} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="mr-1 h-4 w-4" />
+                            View Details / Link
+                        </a>
+                        </Button>
+                    </div>
+                )}
+                 {!item.description && !item.url && <div className="pb-1"></div>}
+                 {item.description && !item.url && <div className="pb-1"></div>}
+            </div>
+        </AccordionContent>
+    </AccordionItem>
 );
 
 const CertificationsPage: FC = () => {
@@ -98,7 +109,9 @@ const CertificationsPage: FC = () => {
       <div>
           <h2 className="text-2xl font-semibold mb-6 text-primary border-b pb-2">My Certifications</h2>
            {certifications.length > 0 ? (
-              certifications.map((item) => <RenderAcademicItem key={item.id} item={item} />)
+              <Accordion type="single" collapsible className="w-full space-y-4">
+                {certifications.map((item) => <RenderAcademicItem key={item.id} item={item} />)}
+              </Accordion>
            ) : (
                <p className="text-muted-foreground">No certifications listed.</p>
            )}
