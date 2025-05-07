@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { GraduationCap, BookOpen, ExternalLink, FileText } from 'lucide-react'; // Added FileText
-import { format, parse, isValid } from 'date-fns';
+import { parse, isValid } from 'date-fns';
 import portfolioData from '@/config/portfolio-data.json';
 
 interface AcademicItemConfig {
@@ -101,7 +101,7 @@ const RenderAcademicItem: FC<{ item: AcademicItem }> = ({ item }) => (
 const AcademicsPage: FC = () => {
   return (
     <div className="container mx-auto px-4 py-8 animate-fade-in">
-      <h1 className="text-4xl font-bold mb-12 text-primary text-center">Academics & Publications</h1>
+      <h1 className="text-4xl font-bold mb-12 text-primary text-center">Academics</h1>
       
       {/* Academic Degrees & Coursework Section */}
       <div className="mb-12">
