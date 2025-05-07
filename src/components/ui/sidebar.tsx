@@ -8,7 +8,7 @@ import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import { Sheet, SheetContent } from "@/components/ui/sheet" // Keep for type, but Sheet usage will be removed from Sidebar
+import { Sheet, SheetContent } from "@/components/ui/sheet" 
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   Tooltip,
@@ -20,7 +20,7 @@ import {
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
 const SIDEBAR_WIDTH = "16rem";
-const SIDEBAR_WIDTH_MOBILE = "14rem"; // This can be used if specific mobile expanded width is desired later
+const SIDEBAR_WIDTH_MOBILE = "14rem"; 
 const SIDEBAR_WIDTH_ICON = "3rem"
 const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 
@@ -154,7 +154,7 @@ const Sidebar = React.forwardRef<
     {
       side = "left",
       variant = "sidebar",
-      collapsible = "offcanvas", // Default to offcanvas if not specified, layout.tsx uses "icon"
+      collapsible = "offcanvas", 
       className,
       children,
       ...props
@@ -179,38 +179,31 @@ const Sidebar = React.forwardRef<
     }
     
     return (
-      <div // This is the main peer div, acts as a data carrier
+      <div 
         ref={ref}
-        className="group peer text-sidebar-foreground" // Always rendered, no hidden md:block
+        className="group peer text-sidebar-foreground" 
         data-state={state} 
         data-collapsible={state === "collapsed" ? collapsible : ""}
         data-variant={variant}
         data-side={side}
       >
-        {/* Actual sidebar content, fixed position */}
         <div
           className={cn(
             "duration-200 fixed inset-y-0 z-[60] flex h-svh transition-[left,right,width] ease-linear",
-            // Positioning based on side and state for offcanvas
             side === "left"
               ? (state === "expanded" ? "left-0" : (collapsible === "offcanvas" ? "left-[calc(var(--sidebar-width)*-1)]" : "left-0"))
               : (state === "expanded" ? "right-0" : (collapsible === "offcanvas" ? "right-[calc(var(--sidebar-width)*-1)]" : "right-0")),
-            
-            // Width determination based on state, collapsible type, and variant
             (state === "expanded"
-              ? "w-[var(--sidebar-width)]" // Expanded width
-              : (collapsible === "icon" // Collapsed and icon mode
+              ? "w-[var(--sidebar-width)]" 
+              : (collapsible === "icon" 
                   ? (variant === "floating" || variant === "inset"
-                      ? "w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4)_+_2px)] p-2" // Icon mode, floating/inset (padding included in width calc)
-                      : "w-[var(--sidebar-width-icon)]" // Icon mode, standard
+                      ? "w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4)_+_2px)] p-2" 
+                      : "w-[var(--sidebar-width-icon)]" 
                     )
-                  : "w-0" // Collapsed and not icon mode (e.g., offcanvas becomes 0 width)
+                  : "w-0" 
                 )
             ),
-            // Add padding for expanded floating/inset variants
             (variant === "floating" || variant === "inset") && state === "expanded" && "p-2",
-            
-            // Border styling
             (variant !== "floating" && variant !== "inset") && 
               (side === "left" 
                 ? (state === "collapsed" && collapsible === "offcanvas" ? "border-r-0" : "border-r") 
@@ -269,10 +262,10 @@ const SidebarInset = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"main">
 >(({ className, onClick, ...props }, ref) => {
-  const { open, setOpen } = useSidebar(); // Removed isMobile dependency for this action
+  const { open, setOpen } = useSidebar(); 
 
   const handleInsetClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (open) { // If sidebar is open, clicking main content area closes it
+    if (open) { 
       setOpen(false);
     }
     if (onClick) {
@@ -285,17 +278,25 @@ const SidebarInset = React.forwardRef<
       ref={ref}
       onClick={handleInsetClick}
       className={cn(
-        "relative flex min-h-svh flex-1 flex-col bg-background transition-all duration-200 ease-linear", // Added transition for margin changes
-        // Left Sidebar Margins (peer is the Sidebar component's main wrapper)
-        "peer-data-[side=left]:[data-state=expanded]:ml-[var(--sidebar-width)]",
-        "peer-data-[side=left]:[data-state=collapsed]:peer-data-[collapsible=icon]:ml-[var(--sidebar-width-icon)]",
-        "peer-data-[side=left]:[data-state=collapsed]:peer-data-[collapsible=offcanvas]:ml-0",
-        // Right Sidebar Margins
-        "peer-data-[side=right]:[data-state=expanded]:mr-[var(--sidebar-width)]",
-        "peer-data-[side=right]:[data-state=collapsed]:peer-data-[collapsible=icon]:mr-[var(--sidebar-width-icon)]",
-        "peer-data-[side=right]:[data-state=collapsed]:peer-data-[collapsible=offcanvas]:mr-0",
+        "relative flex min-h-svh flex-1 flex-col bg-background transition-all duration-200 ease-linear",
         
-        // Styling for when the sidebar has 'inset' variant, applied to the main content area
+        // --- Left Sidebar ---
+        // Collapsed Icon Mode: Push content by icon width
+        "peer-data-[side=left]:peer-data-[state=collapsed]:peer-data-[collapsible=icon]:ml-[var(--sidebar-width-icon)]",
+        // Collapsed Offcanvas Mode: No margin, sidebar is off-screen
+        "peer-data-[side=left]:peer-data-[state=collapsed]:peer-data-[collapsible=offcanvas]:ml-0",
+        // If expanded in "icon" mode, no explicit margin rule applies here, so sidebar (fixed + z-indexed) overlays.
+        // If expanded in "offcanvas" mode, an explicit rule would be needed if it should push content.
+        // For now, removing the general "peer-data-[side=left]:[data-state=expanded]:ml-[var(--sidebar-width)]" rule
+        // means expanded mode will be an overlay by default unless a more specific rule for pushing is added.
+
+        // --- Right Sidebar ---
+        // Collapsed Icon Mode: Push content by icon width
+        "peer-data-[side=right]:peer-data-[state=collapsed]:peer-data-[collapsible=icon]:mr-[var(--sidebar-width-icon)]",
+        // Collapsed Offcanvas Mode: No margin
+        "peer-data-[side=right]:peer-data-[state=collapsed]:peer-data-[collapsible=offcanvas]:mr-0",
+        // Similar logic for expanded right sidebar as for left.
+        
         "peer-data-[variant=inset]:m-2 peer-data-[variant=inset]:rounded-xl peer-data-[variant=inset]:shadow",
         className
       )}
@@ -434,7 +435,7 @@ const SidebarGroupAction = React.forwardRef<
       data-sidebar="group-action"
       className={cn(
         "absolute right-3 top-3.5 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-sidebar-foreground outline-none ring-sidebar-ring transition-transform hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
-        "after:absolute after:-inset-2", // Removed md:hidden to ensure hit area on mobile too
+        "after:absolute after:-inset-2", 
         "group-data-[collapsible=icon]:hidden",
         className
       )}
@@ -526,7 +527,7 @@ const SidebarMenuButton = React.forwardRef<
     ref
   ) => {
     const Comp = asChild ? Slot : "button"
-    const { state, isMobile } = useSidebar() // isMobile still useful for tooltip logic
+    const { state, isMobile } = useSidebar() 
 
     const button = (
       <Comp
@@ -555,7 +556,6 @@ const SidebarMenuButton = React.forwardRef<
         <TooltipContent
           side="right"
           align="center"
-          // Tooltip should be hidden when expanded OR on mobile (where tooltips are less user-friendly)
           hidden={state === "expanded" || isMobile} 
           {...tooltip}
         />
@@ -580,13 +580,13 @@ const SidebarMenuAction = React.forwardRef<
       data-sidebar="menu-action"
       className={cn(
         "absolute right-1 top-1.5 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-sidebar-foreground outline-none ring-sidebar-ring transition-transform hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 peer-hover/menu-button:text-sidebar-accent-foreground [&>svg]:size-4 [&>svg]:shrink-0",
-        "after:absolute after:-inset-2", // Removed md:hidden
+        "after:absolute after:-inset-2", 
         "peer-data-[size=sm]/menu-button:top-1",
         "peer-data-[size=default]/menu-button:top-1.5",
         "peer-data-[size=lg]/menu-button:top-2.5",
         "group-data-[collapsible=icon]:hidden",
         showOnHover &&
-          "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 peer-data-[active=true]/menu-button:text-sidebar-accent-foreground opacity-0", // Removed md: from opacity-0 for consistency
+          "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 peer-data-[active=true]/menu-button:text-sidebar-accent-foreground opacity-0", 
         className
       )}
       {...props}
