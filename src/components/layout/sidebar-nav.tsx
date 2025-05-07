@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -31,16 +30,12 @@ const navItems: NavItem[] = [
 
 export const SidebarNav: FC = () => {
   const pathname = usePathname();
-  const { isMobile, setOpenMobile, open, setOpen, toggleSidebar } = useSidebar();
+  const { open, setOpen, toggleSidebar } = useSidebar(); // Removed isMobile, setOpenMobile
 
   const handleNavItemClick = () => {
-    if (isMobile) {
-      setOpenMobile(false);
-    } else {
-      // If the sidebar is open on desktop, and a nav item is clicked, close it.
-      if (open) {
-        setOpen(false);
-      }
+    // Always close the sidebar if it's open when a nav item is clicked.
+    if (open) {
+      setOpen(false);
     }
   };
 
@@ -65,7 +60,7 @@ export const SidebarNav: FC = () => {
                 isActive={pathname === item.href}
                 className="justify-start"
                 tooltip={{ children: item.label, side: 'right', align: 'center' }}
-                onClick={handleNavItemClick} // Updated to use the new handler
+                onClick={handleNavItemClick}
               >
                 <Link href={item.href}>
                   <item.icon />
@@ -79,4 +74,3 @@ export const SidebarNav: FC = () => {
     </>
   );
 };
-
