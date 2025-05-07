@@ -24,8 +24,8 @@ const navItems: NavItem[] = [
   { href: '/', label: 'Home', icon: Home },
   { href: '/projects', label: 'Projects', icon: Code },
   { href: '/experience', label: 'Experience', icon: Briefcase },
-  { href: '/academics', label: 'Academics', icon: GraduationCap }, // Updated label
-  { href: '/certifications', label: 'Certifications', icon: Award }, // Updated href and label
+  { href: '/academics', label: 'Academics', icon: GraduationCap },
+  { href: '/certifications', label: 'Certifications', icon: Award },
   { href: '/skills', label: 'Skills', icon: UserCircle },
 ];
 
@@ -37,9 +37,9 @@ export const SidebarNav: FC = () => {
     if (isMobile) {
       setOpenMobile(false);
     } else {
+      // If the sidebar is open on desktop, and a nav item is clicked, close it.
       if (open) {
-        // Keep sidebar open on desktop, or uncomment to close
-        // setOpen(false); 
+        setOpen(false);
       }
     }
   };
@@ -65,7 +65,7 @@ export const SidebarNav: FC = () => {
                 isActive={pathname === item.href}
                 className="justify-start"
                 tooltip={{ children: item.label, side: 'right', align: 'center' }}
-                onClick={handleNavItemClick}
+                onClick={handleNavItemClick} // Updated to use the new handler
               >
                 <Link href={item.href}>
                   <item.icon />

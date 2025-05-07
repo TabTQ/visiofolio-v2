@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -285,10 +286,24 @@ SidebarRail.displayName = "SidebarRail"
 const SidebarInset = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"main">
->(({ className, ...props }, ref) => {
+>(({ className, onClick, ...props }, ref) => {
+  const { isMobile, open, setOpen } = useSidebar();
+
+  const handleInsetClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    // If on desktop and the sidebar is open, clicking the main content area closes the sidebar.
+    if (!isMobile && open) {
+      setOpen(false);
+    }
+    // Call the original onClick if it was provided
+    if (onClick) {
+      onClick(event);
+    }
+  };
+
   return (
     <main
       ref={ref}
+      onClick={handleInsetClick}
       className={cn(
         "relative flex min-h-svh flex-1 flex-col bg-background",
         "peer-data-[variant=inset]:min-h-[calc(100svh-theme(spacing.4))] md:peer-data-[variant=inset]:m-2 md:peer-data-[state=collapsed]:peer-data-[variant=inset]:ml-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow",
@@ -725,3 +740,4 @@ export {
   SidebarSeparator,
   useSidebar,
 }
+
