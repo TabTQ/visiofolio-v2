@@ -53,7 +53,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} font-sans antialiased flex flex-col min-h-screen bg-secondary`}
       >
-        <SidebarProvider defaultOpen={true}>
+        <SidebarProvider defaultOpen={false}>
           <Sidebar collapsible="icon" side="left" className="border-r border-sidebar-border bg-sidebar text-sidebar-foreground">
             <SidebarNav />
           </Sidebar>
@@ -70,3 +70,4 @@ export default function RootLayout({
     </html>
   );
 }
+
