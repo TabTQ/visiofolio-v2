@@ -1,7 +1,9 @@
 import axios from 'axios';
 import type { PersonalInfo, Project, Experience, Academic, Skill } from '../types';
 
-const API_BASE_URL = 'http://localhost:8080/api';
+// API base URL from environment variables (.env file)
+// Default to localhost if not set
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,

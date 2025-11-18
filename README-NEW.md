@@ -76,6 +76,13 @@ GRANT ALL PRIVILEGES ON DATABASE portfolio_db TO postgres;
 # Navigate to backend directory
 cd backend
 
+# Configure database connection (using .env file - recommended)
+cp .env.example .env
+# Edit .env file with your database credentials
+
+# Or use the default settings (localhost PostgreSQL)
+# The default .env is already configured for localhost
+
 # Build the project
 mvn clean install
 
@@ -84,6 +91,15 @@ mvn spring-boot:run
 
 # The backend will start on http://localhost:8080
 # Initial data from the old portfolio will be automatically loaded
+```
+
+**Configuration with .env file:**
+The backend uses a `.env` file for configuration. Edit `backend/.env`:
+```bash
+DB_URL=jdbc:postgresql://localhost:5432/portfolio_db
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+SERVER_PORT=8080
 ```
 
 The backend provides the following REST API endpoints:
@@ -100,6 +116,13 @@ The backend provides the following REST API endpoints:
 # Navigate to frontend directory
 cd ../frontend
 
+# Configure API endpoint (using .env file - recommended)
+cp .env.example .env
+# Edit .env file if your backend is not on localhost:8080
+
+# Or use the default settings (localhost backend)
+# The default .env is already configured for localhost
+
 # Install dependencies
 npm install
 
@@ -107,6 +130,13 @@ npm install
 npm run dev
 
 # The frontend will start on http://localhost:5173
+```
+
+**Configuration with .env file:**
+The frontend uses a `.env` file for API configuration. Edit `frontend/.env`:
+```bash
+VITE_API_BASE_URL=http://localhost:8080/api
+VITE_APP_NAME=Portfolio
 ```
 
 ### 4. Access the Application
@@ -177,29 +207,48 @@ Deploy the `dist` folder to any static hosting service.
 
 ## Configuration
 
-### Backend Configuration
+### Backend Configuration (.env file)
 
-Edit `backend/src/main/resources/application.properties`:
+The backend uses environment variables loaded from a `.env` file:
 
-```properties
-# Database connection
-spring.datasource.url=jdbc:postgresql://localhost:5432/portfolio_db
-spring.datasource.username=postgres
-spring.datasource.password=postgres
+1. **Copy the example file:**
+   ```bash
+   cd backend
+   cp .env.example .env
+   ```
 
-# Server port
-server.port=8080
+2. **Edit `backend/.env` with your settings:**
+   ```bash
+   DB_URL=jdbc:postgresql://your-host:5432/portfolio_db
+   DB_USERNAME=your_username
+   DB_PASSWORD=your_password
+   SERVER_PORT=8080
+   ```
+
+The `.env` file is automatically loaded and is excluded from git for security.
+
+### Frontend Configuration (.env file)
+
+The frontend uses environment variables loaded from a `.env` file:
+
+1. **Copy the example file:**
+   ```bash
+   cd frontend
+   cp .env.example .env
+   ```
+
+2. **Edit `frontend/.env` with your API URL:**
+   ```bash
+   VITE_API_BASE_URL=http://localhost:8080/api
+   VITE_APP_NAME=Portfolio
+   ```
+
+For production, create a `.env.production` file:
+```bash
+VITE_API_BASE_URL=https://your-api-domain.com/api
 ```
 
-### Frontend Configuration
-
-Edit `frontend/src/api/portfolioApi.ts`:
-
-```typescript
-const API_BASE_URL = 'http://localhost:8080/api';
-```
-
-Change this to your production API URL when deploying.
+The `.env` file is automatically loaded by Vite and is excluded from git for security.
 
 ## Data Migration
 

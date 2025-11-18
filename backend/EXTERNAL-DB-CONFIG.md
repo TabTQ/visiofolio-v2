@@ -2,7 +2,33 @@
 
 The Spring Boot backend is fully compatible with external PostgreSQL databases. Here's how to configure it:
 
-## Method 1: Environment Variables (Recommended)
+## Method 1: Using .env File (Recommended)
+
+The easiest and most secure way to configure database credentials:
+
+1. **Copy the example file:**
+   ```bash
+   cd backend
+   cp .env.example .env
+   ```
+
+2. **Edit `.env` file with your database configuration:**
+   ```bash
+   # backend/.env
+   DB_URL=jdbc:postgresql://your-db-host:5432/portfolio_db
+   DB_USERNAME=your_username
+   DB_PASSWORD=your_password
+   SERVER_PORT=8080
+   ```
+
+3. **Run the application:**
+   ```bash
+   mvn spring-boot:run
+   ```
+
+The `.env` file is automatically loaded by the spring-dotenv library and is included in `.gitignore` for security.
+
+## Method 2: System Environment Variables
 
 Set these environment variables before starting the application:
 
@@ -28,7 +54,7 @@ cd backend
 mvn spring-boot:run
 ```
 
-## Method 2: Direct Configuration File Edit
+## Method 3: Direct Configuration File Edit
 
 Edit `backend/src/main/resources/application.properties`:
 
@@ -39,7 +65,7 @@ spring.datasource.username=your_username
 spring.datasource.password=your_password
 ```
 
-## Method 3: Command Line Arguments
+## Method 4: Command Line Arguments
 
 ```bash
 cd backend
